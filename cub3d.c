@@ -1,8 +1,4 @@
 #include "cub3d.h"
-#include <mlx.h>
-#include <math.h>
-#include <stdio.h>
-
 
 static	void putvision(t_mlx *mlx, int map[25][25])
 {
@@ -14,7 +10,7 @@ static	void putvision(t_mlx *mlx, int map[25][25])
 	y = 0;
 	while (x <= WIDTH)
 	{
-		mlx->camerax = (2 * x / WIDTH ) - 1;
+		mlx->camerax = 2 * x / (double)WIDTH - 1;
 		mlx->ray_posx = mlx->cam_posx;
 		mlx->ray_posy = mlx->cam_posy;
 		mlx->ray_dirx = mlx->cam_dirx + mlx->planex * mlx->camerax;
@@ -22,7 +18,7 @@ static	void putvision(t_mlx *mlx, int map[25][25])
 		mlx->mapx = (int)mlx->ray_posx;
 		mlx->mapy = (int)mlx->ray_posy;
 		mlx->deltadistx = fabs(1 / mlx->ray_dirx);
-    	mlx->deltadisty = fabs(1 / mlx->ray_diry);
+		mlx->deltadisty = fabs(1 / mlx->ray_diry);
 		mlx->hit = 0;
 		if (mlx->ray_dirx < 0)
 		{
@@ -62,12 +58,12 @@ static	void putvision(t_mlx *mlx, int map[25][25])
 				mlx->hit = 1;
 		}
 		if (mlx->side == 0)
-			mlx->perpwalldist = fabs((mlx->mapx - mlx->ray_posx + (1 - mlx->stepx) / 2) / mlx->ray_dirx);
+			mlx->perpwalldist = (mlx->mapx - mlx->ray_posx + (1 - mlx->stepx) / 2) / mlx->ray_dirx;
 		else
-			mlx->perpwalldist = fabs((mlx->mapy - mlx->ray_posy + (1 - mlx->stepy) / 2) / mlx->ray_diry);
-		mlx->hline = (int)( HEIGHT/ mlx->perpwalldist);
-		mlx->drawst = (-mlx->hline / 2 + HEIGHT / 2);
-		mlx->drawend = (int)(mlx->hline / 2 + HEIGHT / 2);
+			mlx->perpwalldist = (mlx->mapy - mlx->ray_posy + (1 - mlx->stepy) / 2) / mlx->ray_diry;
+		mlx->hline = (int)( HEIGHT / mlx->perpwalldist);
+		mlx->drawst = -mlx->hline / 2 + HEIGHT / 2;
+		mlx->drawend = mlx->hline / 2 + HEIGHT / 2;
 		if (mlx->drawst < 0)
 			mlx->drawst = 0;
 		if (mlx->drawend >= HEIGHT)
@@ -94,7 +90,7 @@ static	void putvision(t_mlx *mlx, int map[25][25])
 	}
 }
 
-static int		key_hook(int keycode, t_mlx *mlx)
+static int		event(int keycode, t_mlx *mlx)
 {
 		int map[25][25] = {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -123,38 +119,51 @@ static int		key_hook(int keycode, t_mlx *mlx)
 {1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1},
 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
-	double	olddirx;
-	double	olddplanex;
-
-	if (keycode == 126)
-	{
-		if (map[(int)(mlx->cam_posx + mlx->cam_dirx * mlx->spw)][(int)(mlx->cam_posy)] == 0)
-			mlx->cam_posx += mlx->cam_dirx * mlx->spw;
-		if (map[(int)(mlx->cam_posx)][(int)(mlx->cam_posy + mlx->cam_diry * mlx->spw)])
-			mlx->cam_posy += mlx->cam_diry * mlx->spw;
-	}
-	if (keycode == 124)
-	{
-		if (map[(int)(mlx->cam_posx + mlx->planex * mlx->spw)][(int)(mlx->cam_posy)] == 0)
-			mlx->cam_posx += mlx->planex * mlx->spw;
-		if (map[(int)(mlx->cam_posx)][(int)(mlx->cam_posy + mlx->planey * mlx->spw)])
-			mlx->cam_posy += mlx->planey * mlx->spw;
-	}
-	if (keycode == 123)
-	{
-		olddirx = mlx->cam_dirx;
-		mlx->cam_dirx = mlx->cam_dirx * cos(0.2) - mlx->cam_diry * sin(0.2);
-		mlx->cam_diry = olddirx * sin(0.2) - mlx->cam_diry * cos(0.2);
-		olddplanex = mlx->planex;
-		mlx->planex = mlx->planex * cos(0.2) - mlx->planey * sin(0.2);
-		mlx->planey = olddplanex * sin(0.2) - mlx->planey * cos(0.2);
-	}
+	if (keycode == 13)
+		move_forward(map, mlx);
+	else if (keycode == 1)
+		move_back(map, mlx);
+	else if (keycode == 0)
+		move_left(map, mlx);
+	else if (keycode == 2)
+		move_right(map, mlx);
+	else if (keycode == 123 || keycode == 124)
+		turning_cam(mlx, keycode == 123 ? -0.2 : 0.2);
+	else
+		return (0);
 	putvision(mlx, map);
 	return (0);
 }
 
 int	main()
 {
+			int map[25][25] = {
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,0,1,1,1,1},
+{1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1},
+{1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1},
+{1,1,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,0,0,1},
+{1,1,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,1,1},
+{1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1},
+{1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1,1,0,0,0,0,0,0,1},
+{1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,0,1},
+{1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1},
+{1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1},
+{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,0,1},
+{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,0,1},
+{1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1},
+{1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	};
 	int HEIGHT = 800;
 	int	WIDTH = 1000;
 	t_mlx mlx;
@@ -170,6 +179,7 @@ int	main()
 	mlx.planey = 1;
 	mlx.mlx = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "test");
-	mlx_hook(mlx.window, 2, 0, key_hook, &mlx);
+	putvision(&mlx, map);
+	mlx_hook(mlx.window, 2, 0, event, &mlx);
 	mlx_loop(mlx.mlx);
 }

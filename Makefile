@@ -6,13 +6,14 @@
 #    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/02/17 15:45:30 by grochefo         ###   ########.fr        #
+#    Updated: 2020/02/18 13:12:26 by grochefo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CUB3D_FILES_C =	cub3d.c \
+				ft_raycasting.c \
 				events/move_back.c \
 				events/move_forward.c \
 				events/move_left.c \

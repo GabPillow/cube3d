@@ -38,7 +38,7 @@ static int		event(int keycode, t_mlx *mlx)
 	else if (keycode == 2)
 		move_right(map, mlx);
 	else if (keycode == 123 || keycode == 124)
-		turning_cam(mlx, keycode == 123 ? 0.2 : -0.2);
+		turning_cam(mlx, keycode == 123 ? 0.15 : -0.15);
 	else
 		return (0);
 	ft_raycasting(mlx, map);
@@ -77,7 +77,7 @@ int	main()
 	t_mlx mlx;
 	mlx.height = 800;
 	mlx.width = 1000;
-	mlx.spw = 0.2;
+	mlx.spw = 0.15;
 	//position camera
 	mlx.cam_posx = 22;
 	mlx.cam_posy = 11.5;

@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/18 15:25:25 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/18 17:53:12 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static void	ft_calcul_wall(t_mlx *mlx, t_ray *ray, int map[25][25])
 			hit = 1;
 	}
 	if (mlx->side == 0)
-		mlx->perpwalldist = (mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx;
+		mlx->perpwalldist = fabs((mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx);
 	else
-		mlx->perpwalldist = (mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry;
+		mlx->perpwalldist = fabs((mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry);
 }
 
 void	ft_raycasting(t_mlx *mlx, int map[25][25])
@@ -78,7 +78,7 @@ void	ft_raycasting(t_mlx *mlx, int map[25][25])
 	img.data = (int*)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	x = 0;
 	y = 0;
-	while (x <= mlx->width)
+	while (x < mlx->width)
 	{
 		mlx->camerax = 2 * x / (double)(mlx->width) - 1;
 		ray.posx = mlx->cam_posx;
@@ -94,22 +94,20 @@ void	ft_raycasting(t_mlx *mlx, int map[25][25])
 		drawend = mlx->hline / 2 + mlx->height / 2;
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= mlx->height ? drawend = mlx->height - 1 : drawend;
-		y = drawst;
-		while (y < drawend)
-		{
-			mlx->color = 8558335;
-			if (mlx->side == 1)
-				mlx->color = 7247615;
-			img.data[y * mlx->width + x] = mlx->color;
-			y++;
-		}
-		if (drawend < 0)
-			drawend = mlx->height;
-		y = drawend;
+		y = -mlx->height;
 		while (y < mlx->height)
 		{
-			img.data[y * mlx->width + x] = 16737400;
-			img.data[(mlx->height - y - 1) * mlx->width + x] = 16747640;
+			if (y < drawst)
+				img.data[y * mlx->width + x] = 16747640;
+			if (y >= drawst && y <= drawend)
+			{
+				mlx->color = 8558335;
+				if (mlx->side == 1)
+					mlx->color = 7247615;
+				img.data[y * mlx->width + x] = mlx->color;
+			}
+			if (y > drawend)
+				img.data[y * mlx->width + x] = 16737400;
 			y++;
 		}
 		x++;

@@ -6,13 +6,28 @@
 #    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/02/18 13:12:26 by grochefo         ###   ########.fr        #
+#    Updated: 2020/02/20 18:25:05 by grochefo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CUB3D_FILES_C =	cub3d.c \
+CUB3D_FILES_C = libft/ft_strjoinplus.c \
+				libft/get_next_line.c \
+				libft/get_next_line_utils.c \
+				libft/ft_strdup.c \
+				libft/ft_strcpy.c \
+				libft/ft_strnew.c \
+				libft/ft_calloc.c \
+				libft/ft_strlen.c \
+				libft/ft_strcat.c \
+				libft/ft_memdel.c \
+				libft/ft_strdel.c \
+				libft/ft_memcpy.c \
+				libft/ft_bzero.c \
+				libft/ft_memset.c \
+				cub3d.c \
+				get_map.c \
 				ft_raycasting.c \
 				events/move_back.c \
 				events/move_forward.c \

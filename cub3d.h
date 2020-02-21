@@ -6,27 +6,43 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/18 14:36:53 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 13:02:07 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include <mlx.h>
 # include <math.h>
 # include <stdio.h>
+# include "libft/libft.h"
 
 # define K_S = 125
 # define K_W = 126
 # define K_A = 123
 # define K_D = 124
 
+typedef struct	s_map
+{
+	char		**map;
+	char		dir;
+	int			size_w;
+	int			size_h;
+}				t_map;
+
 typedef struct	s_texture
 {
-	void	*id;
-	int		width;
-	int		height;
+	void		*id;
+	int			*data;
+	int			width;
+	int			height;
+	int			size_l;
+	int			bpp;
+	int			endian;
 }				t_texture;
 
 typedef	struct	s_img
@@ -54,6 +70,7 @@ typedef	struct	s_ray
 
 typedef struct	s_mlx
 {
+	t_map		map;
 	int			height;
 	int			width;
 	double		spw;
@@ -74,10 +91,11 @@ typedef struct	s_mlx
 	double		perpwalldist;
 }				t_mlx;
 
-void	move_forward(int map[25][25], t_mlx *mlx);
-void	move_back(int map[25][25], t_mlx *mlx);
-void	move_right(int map[25][25], t_mlx *mlx);
-void	move_left(int map[25][25], t_mlx *mlx);
+void	move_forward(t_map *map, t_mlx *mlx);
+void	move_back(t_map *map, t_mlx *mlx);
+void	move_right(t_map *map, t_mlx *mlx);
+void	move_left(t_map *map, t_mlx *mlx);
 void	turning_cam(t_mlx *mlx, double speed);
-void	ft_raycasting(t_mlx *mlx, int map[25][25]);
+void	ft_raycasting(t_mlx *mlx, char **map);
+void	get_map(char *path, t_map *map);
 #endif

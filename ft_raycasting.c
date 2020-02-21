@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/18 17:53:12 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 13:40:50 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_calcul_vec_dist(t_ray *ray, int mapx, int mapy)
 	}
 }
 
-static void	ft_calcul_wall(t_mlx *mlx, t_ray *ray, int map[25][25])
+static void	ft_calcul_wall(t_mlx *mlx, t_ray *ray, char **map)
 {
 	int	hit;
 
@@ -57,25 +57,25 @@ static void	ft_calcul_wall(t_mlx *mlx, t_ray *ray, int map[25][25])
 			mlx->mapy += ray->stepy;
 			mlx->side = 1;
 		}
-		if (map[mlx->mapx][mlx->mapy] > 0)
+		if (map[mlx->mapx][mlx->mapy] > '0')
 			hit = 1;
 	}
-	if (mlx->side == 0)
-		mlx->perpwalldist = fabs((mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx);
-	else
-		mlx->perpwalldist = fabs((mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry);
+	mlx->side == 0 ? mlx->perpwalldist = \
+	fabs((mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx) : \
+	fabs((mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry);
 }
 
-void	ft_raycasting(t_mlx *mlx, int map[25][25])
+void	ft_raycasting(t_mlx *mlx, char **map)
 {
-	t_ray	ray;
-	t_img	img;
-	int		x;
-	int		y;
-	int		drawst;
-	int		drawend;
+	t_ray		ray;
+	t_img		img;
+	int			x;
+	int			y;
+	int			drawst;
+	int			drawend;
 	img.img_ptr = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
-	img.data = (int*)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
+	img.data = \
+	(int*)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
 	x = 0;
 	y = 0;
 	while (x < mlx->width)

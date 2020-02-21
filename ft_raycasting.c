@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 13:40:50 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:05:19 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ static void	ft_calcul_wall(t_mlx *mlx, t_ray *ray, char **map)
 			mlx->mapy += ray->stepy;
 			mlx->side = 1;
 		}
-		if (map[mlx->mapx][mlx->mapy] > '0')
+		if (map[mlx->mapx][mlx->mapy] != '0')
 			hit = 1;
 	}
-	mlx->side == 0 ? mlx->perpwalldist = \
-	fabs((mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx) : \
-	fabs((mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry);
+	if (mlx->side == 0)
+		mlx->perpwalldist = fabs((mlx->mapx - ray->posx + (1 - ray->stepx) / 2) / ray->dirx);
+	else
+		mlx->perpwalldist = fabs((mlx->mapy - ray->posy + (1 - ray->stepy) / 2) / ray->diry);
 }
 
-void	ft_raycasting(t_mlx *mlx, char **map)
+void	ft_raycasting(t_mlx *mlx, t_map *map)
 {
 	t_ray		ray;
 	t_img		img;
@@ -81,14 +82,14 @@ void	ft_raycasting(t_mlx *mlx, char **map)
 	while (x < mlx->width)
 	{
 		mlx->camerax = 2 * x / (double)(mlx->width) - 1;
-		ray.posx = mlx->cam_posx;
-		ray.posy = mlx->cam_posy;
-		ray.dirx = mlx->cam_dirx + mlx->planex * mlx->camerax;
-		ray.diry = mlx->cam_diry + mlx->planey * mlx->camerax;
+		ray.posx = map->posx;
+		ray.posy = map->posy;
+		ray.dirx = map->dirx + mlx->planex * mlx->camerax;
+		ray.diry = map->diry + mlx->planey * mlx->camerax;
 		mlx->mapx = (int)ray.posx;
 		mlx->mapy = (int)ray.posy;
 		ft_calcul_vec_dist(&ray, mlx->mapx, mlx->mapy);
-		ft_calcul_wall(mlx, &ray, map);
+		ft_calcul_wall(mlx, &ray, map->map);
 		mlx->hline = (int)(mlx->height / mlx->perpwalldist);
 		drawst = -mlx->hline / 2 + mlx->height / 2;
 		drawend = mlx->hline / 2 + mlx->height / 2;

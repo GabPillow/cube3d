@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   turning_cam.c                                      :+:      :+:    :+:   */
+/*   line_to_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 15:11:50 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:03:12 by grochefo         ###   ########.fr       */
+/*   Created: 2020/02/21 15:42:19 by grochefo          #+#    #+#             */
+/*   Updated: 2020/02/21 15:44:57 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	turning_cam(t_mlx *mlx, t_map *map, double speed)
+void		line_to_tab(char *line, t_map *map)
 {
-	double	olddirx;
-	double	olddplanex;
+	int	i;
+	int	b;
 
-	olddirx = map->dirx;
-	map->dirx = map->dirx * cos(speed) - map->diry * sin(speed);
-	map->diry = olddirx * sin(speed) + map->diry * cos(speed);
-	olddplanex = mlx->planex;
-	mlx->planex = mlx->planex * cos(speed) - mlx->planey * sin(speed);
-	mlx->planey = olddplanex * sin(speed) + mlx->planey * cos(speed);
+	b = 0;
+	i = 0;
+	while (i < map->size_h)
+	{
+		map->map[i] = line + b;
+		b += map->size_w;
+		i++;
+	}
 }

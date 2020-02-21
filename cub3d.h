@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 13:02:07 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:03:44 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ typedef struct	s_map
 	char		dir;
 	int			size_w;
 	int			size_h;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
 }				t_map;
 
 typedef struct	s_texture
@@ -80,10 +84,6 @@ typedef struct	s_mlx
 	int			color;
 	int			mapx;
 	int			mapy;
-	double		cam_posx;
-	double		cam_posy;
-	double		cam_dirx;
-	double		cam_diry;
 	double		planex;
 	double		planey;
 	int			side;
@@ -95,7 +95,9 @@ void	move_forward(t_map *map, t_mlx *mlx);
 void	move_back(t_map *map, t_mlx *mlx);
 void	move_right(t_map *map, t_mlx *mlx);
 void	move_left(t_map *map, t_mlx *mlx);
-void	turning_cam(t_mlx *mlx, double speed);
-void	ft_raycasting(t_mlx *mlx, char **map);
-void	get_map(char *path, t_map *map);
+void	turning_cam(t_mlx *mlx, t_map *map, double speed);
+void	ft_raycasting(t_mlx *mlx, t_map *map);
+void	parsing_map(char *path, t_map *map);
+void	line_to_tab(char *line, t_map *map);
+void	init_data_map(char *map, t_map *data);
 #endif

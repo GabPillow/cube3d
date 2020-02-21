@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 12:58:36 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 13:57:54 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:11:59 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static int		event(int keycode, t_mlx *mlx)
 	else if (keycode == 2)
 		move_right(&mlx->map, mlx);
 	else if (keycode == 123 || keycode == 124)
-		turning_cam(mlx, keycode == 123 ? 0.15 : -0.15);
+		turning_cam(mlx, &mlx->map, keycode == 123 ? 0.15 : -0.15);
 	else
 		return (0);
-	ft_raycasting(mlx, mlx->map.map);
+	ft_raycasting(mlx, &mlx->map);
 	return (0);
 }
 
@@ -37,18 +37,14 @@ int				main(int argc, char **argv)
 	mlx.height = 800;
 	mlx.width = 1000;
 	mlx.spw = 0.15;
-	mlx.cam_posx = 22;
-	mlx.cam_posy = 11.5;
-	mlx.cam_dirx = -1;
-	mlx.cam_diry = 0.01;
 	mlx.planex = 0;
 	mlx.planey = 1;
 	if (argc == 2)
 	{
-		get_map(argv[1], &mlx.map);
+		parsing_map(argv[1], &mlx.map);
 		mlx.mlx = mlx_init();
 		mlx.window = mlx_new_window(mlx.mlx, mlx.width, mlx.height, "test");
-		ft_raycasting(&mlx, mlx.map.map);
+		ft_raycasting(&mlx, &mlx.map);
 		mlx_hook(mlx.window, 2, 0, event, &mlx);
 		mlx_loop(mlx.mlx);
 		return (1);

@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   turning_cam.c                                      :+:      :+:    :+:   */
+/*   init_data_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 15:11:50 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:03:12 by grochefo         ###   ########.fr       */
+/*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
+/*   Updated: 2020/02/21 16:16:32 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	turning_cam(t_mlx *mlx, t_map *map, double speed)
+void	init_data_map(char *map, t_map *data)
 {
-	double	olddirx;
-	double	olddplanex;
+	int	i;
+	int	x;
+	int	y;
 
-	olddirx = map->dirx;
-	map->dirx = map->dirx * cos(speed) - map->diry * sin(speed);
-	map->diry = olddirx * sin(speed) + map->diry * cos(speed);
-	olddplanex = mlx->planex;
-	mlx->planex = mlx->planex * cos(speed) - mlx->planey * sin(speed);
-	mlx->planey = olddplanex * sin(speed) + mlx->planey * cos(speed);
+	i = 0;
+	x = 0;
+	y = 0;
+	while (map[i] && (map[i] == '1' || map[i] == '0'))
+	{
+		if (x == data->size_w)
+		{
+			x = 0;
+			y++;
+		}
+		x++;
+		i++;
+	}
+	map[i] = '0';
+	data->posx = x + 0.5;
+	data->posy = y + 0.5;
+	data->dirx = -1;
+	data->diry = 0.01;
 }

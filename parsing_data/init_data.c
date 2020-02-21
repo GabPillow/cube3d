@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data_map.c                                    :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 17:34:26 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:44:29 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_data_map(char *map, t_data *data)
+void	init_data(char *map, t_data *data)
 {
 	int	i;
 	int	x;
@@ -38,4 +38,6 @@ void	init_data_map(char *map, t_data *data)
 	data->diry = 0.001;
 	data->planex = 0;
 	data->planey = 1;
+	data->wd_h = 800;
+	data->wd_w = 1000;
 }

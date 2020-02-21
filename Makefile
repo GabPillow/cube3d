@@ -6,7 +6,7 @@
 #    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/02/21 15:47:59 by grochefo         ###   ########.fr        #
+#    Updated: 2020/02/21 19:00:21 by grochefo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ CUB3D_FILES_C = libft/ft_strjoinplus.c \
 				libft/ft_bzero.c \
 				libft/ft_memset.c \
 				cub3d.c \
-				parsing_map/parsing_map.c \
-				parsing_map/line_to_tab.c \
-				parsing_map/init_data_map.c \
+				parsing_data/parsing_data.c \
+				parsing_data/line_to_tab.c \
+				parsing_data/init_data.c \
 				ft_raycasting.c \
 				events/move_back.c \
 				events/move_forward.c \

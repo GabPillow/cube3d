@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 17:19:16 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:39:46 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_data
 	double		diry;
 	double		planex;
 	double		planey;
+	int			wd_h;
+	int			wd_w;
 }				t_data;
 
 typedef struct	s_texture
@@ -63,34 +65,30 @@ typedef	struct	s_img
 	int			endian;
 }				t_img;
 
-typedef	struct	s_ray
+typedef	struct	s_clc
 {
 	double		deltadistx;
 	double		deltadisty;
-	double		posx;
-	double		posy;
 	double		dirx;
 	double		diry;
 	double		sidedistx;
 	double		sidedisty;
 	int			stepx;
 	int			stepy;
-}				t_ray;
+	double		camerax;
+	double		perpwalldist;
+	int			hline;
+	int			side;
+	int			mapx;
+	int			mapy;
+}				t_clc;
 
 typedef struct	s_mlx
 {
 	t_data		data;
-	int			height;
-	int			width;
 	void		*mlx;
 	void		*window;
-	int			hline;
 	int			color;
-	int			mapx;
-	int			mapy;
-	int			side;
-	double		camerax;
-	double		perpwalldist;
 }				t_mlx;
 
 void	move_forward(t_data *data);
@@ -99,7 +97,7 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 void	ft_raycasting(t_mlx *mlx, t_data *data);
-void	parsing_map(char *path, t_data *data);
+void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
-void	init_data_map(char *map, t_data *data);
+void	init_data(char *map, t_data *data);
 #endif

@@ -6,25 +6,25 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:21:45 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:01:48 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:11:17 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	move_back(t_map *map, t_mlx *mlx)
+void	move_back(t_data *data)
 {
 	int a;
 	int	b;
 
-	a = (int)(map->posx - map->dirx * mlx->spw);
-	b = (int)map->posy;
-	if ((a >= 0 && a <= map->size_h) && (b >= 0 && b <= map->size_w) && \
-	map->map[a][b] == '0')
-		map->posx -= map->dirx * mlx->spw;
-	a = (int)map->posx;
-	b = (int)(map->posy - map->diry * mlx->spw);
-	if ((a >= 0 && a <= map->size_h) && (b >= 0 && b <= map->size_w) \
-	&& map->map[a][b] == '0')
-		map->posy -= map->diry * mlx->spw;
+	a = (int)(data->posx - data->dirx * SPW);
+	b = (int)data->posy;
+	if ((a >= 0 && a <= data->map_h) && (b >= 0 && b <= data->map_w) && \
+	data->map[a][b] == '0')
+		data->posx -= data->dirx * SPW;
+	a = (int)data->posx;
+	b = (int)(data->posy - data->diry * SPW);
+	if ((a >= 0 && a <= data->map_h) && (b >= 0 && b <= data->map_w) \
+	&& data->map[a][b] == '0')
+		data->posy -= data->diry * SPW;
 }

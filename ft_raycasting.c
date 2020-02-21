@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:05:19 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 16:53:47 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	ft_raycasting(t_mlx *mlx, t_map *map)
 		mlx->camerax = 2 * x / (double)(mlx->width) - 1;
 		ray.posx = map->posx;
 		ray.posy = map->posy;
-		ray.dirx = map->dirx + mlx->planex * mlx->camerax;
-		ray.diry = map->diry + mlx->planey * mlx->camerax;
+		ray.dirx = map->dirx + map->planex * mlx->camerax;
+		ray.diry = map->diry + map->planey * mlx->camerax;
 		mlx->mapx = (int)ray.posx;
 		mlx->mapy = (int)ray.posy;
 		ft_calcul_vec_dist(&ray, mlx->mapx, mlx->mapy);

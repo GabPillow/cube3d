@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:03:44 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:19:16 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,27 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-# define K_S = 125
-# define K_W = 126
-# define K_A = 123
-# define K_D = 124
+# define K_S 1
+# define K_W 13
+# define K_A 0
+# define K_D 2
+# define K_ARRL 123
+# define K_ARRR 124
+# define SPW 0.15
+# define SPT 0.15
 
-typedef struct	s_map
+typedef struct	s_data
 {
 	char		**map;
-	char		dir;
-	int			size_w;
-	int			size_h;
+	int			map_w;
+	int			map_h;
 	double		posx;
 	double		posy;
 	double		dirx;
 	double		diry;
-}				t_map;
+	double		planex;
+	double		planey;
+}				t_data;
 
 typedef struct	s_texture
 {
@@ -74,30 +79,27 @@ typedef	struct	s_ray
 
 typedef struct	s_mlx
 {
-	t_map		map;
+	t_data		data;
 	int			height;
 	int			width;
-	double		spw;
 	void		*mlx;
 	void		*window;
 	int			hline;
 	int			color;
 	int			mapx;
 	int			mapy;
-	double		planex;
-	double		planey;
 	int			side;
 	double		camerax;
 	double		perpwalldist;
 }				t_mlx;
 
-void	move_forward(t_map *map, t_mlx *mlx);
-void	move_back(t_map *map, t_mlx *mlx);
-void	move_right(t_map *map, t_mlx *mlx);
-void	move_left(t_map *map, t_mlx *mlx);
-void	turning_cam(t_mlx *mlx, t_map *map, double speed);
-void	ft_raycasting(t_mlx *mlx, t_map *map);
-void	parsing_map(char *path, t_map *map);
-void	line_to_tab(char *line, t_map *map);
-void	init_data_map(char *map, t_map *data);
+void	move_forward(t_data *data);
+void	move_back(t_data *data);
+void	move_right(t_data *data);
+void	move_left(t_data *data);
+void	turning_cam(t_data *data, double speed);
+void	ft_raycasting(t_mlx *mlx, t_data *data);
+void	parsing_map(char *path, t_data *data);
+void	line_to_tab(char *line, t_data *data);
+void	init_data_map(char *map, t_data *data);
 #endif

@@ -6,13 +6,13 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 16:52:24 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:34:26 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_data_map(char *map, t_map *data)
+void	init_data_map(char *map, t_data *data)
 {
 	int	i;
 	int	x;
@@ -23,7 +23,7 @@ void	init_data_map(char *map, t_map *data)
 	y = 0;
 	while (map[i] && (map[i] == '1' || map[i] == '0'))
 	{
-		if (x == data->size_w)
+		if (x == data->map_w)
 		{
 			x = 0;
 			y++;

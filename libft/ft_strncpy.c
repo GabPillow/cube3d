@@ -1,28 +1,28 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_to_tab.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: grochefo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/21 15:42:19 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/22 16:42:15 by suzie            ###   ########.fr       */
+/*   Created: 2018/11/08 18:05:54 by grochefo          #+#    #+#             */
+/*   Updated: 2018/11/22 18:19:35 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-void		line_to_tab(char *line, t_data *data)
+char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	int	i;
-	int	b;
+	size_t	i;
 
-	b = 0;
 	i = 0;
-	while (i < data->map_h)
+	ft_memcpy(dest, src, n);
+	while (ft_strlen(src) + i < n)
 	{
-		data->map[i] = line + b;
-		b += data->map_w;
+		dest[ft_strlen(src) + i] = '\0';
 		i++;
 	}
+	return (dest);
 }

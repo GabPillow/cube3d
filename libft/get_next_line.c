@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 16:57:23 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/20 17:25:40 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/23 12:54:42 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		ft_manage_buff(char *buff)
 		buff[i] = 0;
 		i++;
 	}
-	while (i < 100 + 1)
+	while (i < BUFFER_SIZE + 1)
 	{
 		buff[b] = buff[i];
 		buff[i] = 0;
@@ -41,16 +41,14 @@ static int		ft_manage_buff(char *buff)
 
 int				get_next_line(const int fd, char **line)
 {
-	static char	buff[100 + 1];
-	int			ret;
+	static char	buff[BUFFER_SIZE + 1];
 
-	ret = 0;
-	if (!line || 100 < 0 || read(fd, buff, 0) == -1 ||
+	if (!line || BUFFER_SIZE < 0 || read(fd, buff, 0) == -1 ||
 	(!(*line = (char*)ft_calloc(1, sizeof(char)))))
 		return (-1);
-	while (buff[0] || read(fd, buff, 100))
+	while (buff[0] || read(fd, buff, BUFFER_SIZE))
 	{
-		*line = ft_strjoinspe(*line, buff);
+		*line = ft_strjoinnplus(*line, buff, 1, ft_strlenn(buff, '\n'));
 		if (ft_manage_buff(buff))
 			return (1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 19:39:46 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/22 14:02:38 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-# include <mlx.h>
+// # include <mlx.h>
 # include <math.h>
 # include <stdio.h>
 # include "libft/libft.h"
@@ -91,12 +91,12 @@ typedef struct	s_mlx
 	int			color;
 }				t_mlx;
 
-void	move_forward(t_data *data);
-void	move_back(t_data *data);
-void	move_right(t_data *data);
-void	move_left(t_data *data);
-void	turning_cam(t_data *data, double speed);
-void	ft_raycasting(t_mlx *mlx, t_data *data);
+// void	move_forward(t_data *data);
+// void	move_back(t_data *data);
+// void	move_right(t_data *data);
+// void	move_left(t_data *data);
+// void	turning_cam(t_data *data, double speed);
+// void	ft_raycasting(t_mlx *mlx, t_data *data);	
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

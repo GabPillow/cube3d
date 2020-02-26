@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 19:51:01 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:20:26 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,17 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
 }
 
-void	ft_raycasting(t_mlx *mlx, t_data *data)
+void	ft_raycasting(t_data *data, t_img *img)
 {
 	t_clc		clc;
-	t_img		img;
 	int			x;
 	int			y;
 	int			drawst;
 	int			drawend;
-	img.img_ptr = mlx_new_image(mlx->mlx, data->wd_w, data->wd_h);
-	img.data = \
-	(int*)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_l, &img.endian);
+
 	x = 0;
 	y = 0;
-	while (x < data->wd_w)
+	while (x < data->wd_w - 1)
 	{
 		clc.camerax = 2 * x / (double)(data->wd_h) - 1;
 		clc.dirx = data->dirx + data->planex * clc.camerax;
@@ -94,22 +91,21 @@ void	ft_raycasting(t_mlx *mlx, t_data *data)
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
 		y = -data->wd_h;
-		while (y < data->wd_h)
+		while (y < data->wd_h - 1)
 		{
 			if (y < drawst)
-				img.data[y * data->wd_w + x] = 16747640;
+				img->data[y * data->wd_w + x] = 16747640;
 			if (y >= drawst && y <= drawend)
 			{
-				mlx->color = 8558335;
+				clc.color = 8558335;
 				if (clc.side == 1)
-					mlx->color = 7247615;
-				img.data[y * data->wd_w + x] = mlx->color;
+					clc.color = 7247615;
+				img->data[y * data->wd_w + x] = clc.color;
 			}
 			if (y > drawend)
-				img.data[y * data->wd_w + x] = 16737400;
+				img->data[y * data->wd_w + x] = 16737400;
 			y++;
 		}
 		x++;
 	}
-	mlx_put_image_to_window(mlx->mlx, mlx->window, img.img_ptr, 0, 0);
 }

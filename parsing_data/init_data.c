@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/21 19:44:29 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/26 12:26:16 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,33 @@ void	init_data(char *map, t_data *data)
 	data->posx = x + 0.5;
 	data->posy = y + 0.5;
 	data->dirx = -1;
-	data->diry = 0.001;
+	data->diry = 0.00001;
 	data->planex = 0;
 	data->planey = 1;
 	data->wd_h = 800;
 	data->wd_w = 1000;
+
+	//SOUTH
+	// data->dirx = 1;
+	// data->diry = -0.001;
+	// data->planex = 0;
+	// data->planey = -1;
+
+	//NORTH
+	// data->dirx = -1;
+	// data->diry = 0.001;
+	// data->planex = 0;
+	// data->planey = 1;
+
+	// EAST
+	// data->dirx = -0.0001;
+	// data->diry = 1;
+	// data->planex = 1;
+	// data->planey = 0;
+
+	//WEST
+	// data->dirx = 0.0001;
+	// data->diry = -1;
+	// data->planex = -1;
+	// data->planey = 0;
 }

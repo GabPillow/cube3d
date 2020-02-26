@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/22 14:02:38 by suzie            ###   ########.fr       */
+/*   Updated: 2020/02/26 17:25:49 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-// # include <mlx.h>
+# include <mlx.h>
 # include <math.h>
 # include <stdio.h>
 # include "libft/libft.h"
@@ -29,21 +29,6 @@
 # define K_ARRR 124
 # define SPW 0.15
 # define SPT 0.15
-
-typedef struct	s_data
-{
-	char		**map;
-	int			map_w;
-	int			map_h;
-	double		posx;
-	double		posy;
-	double		dirx;
-	double		diry;
-	double		planex;
-	double		planey;
-	int			wd_h;
-	int			wd_w;
-}				t_data;
 
 typedef struct	s_texture
 {
@@ -81,22 +66,35 @@ typedef	struct	s_clc
 	int			side;
 	int			mapx;
 	int			mapy;
+	int			color;
 }				t_clc;
 
-typedef struct	s_mlx
+typedef struct	s_data
 {
-	t_data		data;
+	char		**map;
+	int			map_w;
+	int			map_h;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	int			wd_h;
+	int			wd_w;
 	void		*mlx;
 	void		*window;
-	int			color;
-}				t_mlx;
+	t_img		img;
+}				t_data;
 
-// void	move_forward(t_data *data);
-// void	move_back(t_data *data);
-// void	move_right(t_data *data);
-// void	move_left(t_data *data);
-// void	turning_cam(t_data *data, double speed);
-// void	ft_raycasting(t_mlx *mlx, t_data *data);	
+
+void	move_forward(t_data *data);
+void	move_back(t_data *data);
+void	move_right(t_data *data);
+void	move_left(t_data *data);
+void	turning_cam(t_data *data, double speed);
+void	ft_put_image(t_data *data);
+void	ft_raycasting(t_data *data, t_img *img);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 12:58:36 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 14:54:58 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:04:32 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int				main(int argc, char **argv)
 {
 	t_data	data;
 
+	data.text.width = 32;
+	data.text.height = 32;
 	if (argc == 2)
 	{
 		parsing_data(argv[1], &data);
@@ -42,6 +44,8 @@ int				main(int argc, char **argv)
 		data.img.img_ptr = mlx_new_image(data.mlx, data.wd_w, data.wd_h);
 		data.img.data = \
 		(int*)mlx_get_data_addr(data.img.img_ptr, &data.img.bpp, &data.img.size_l, &data.img.endian);
+		data.text.id  = mlx_xpm_file_to_image(data.mlx, "wood.xpm", &data.text.height, &data.text.width);
+		data.text.data = (int*)mlx_get_data_addr(data.text.id, &data.text.bpp, &data.text.size_l, &data.text.endian);
 		ft_put_image(&data);
 		mlx_hook(data.window, 2, 0, event, &data);
 		mlx_loop(data.mlx);

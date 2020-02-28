@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/26 17:25:49 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:02:34 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_texture
 {
 	void		*id;
 	int			*data;
+	int			x;
 	int			width;
 	int			height;
 	int			size_l;
@@ -85,6 +86,7 @@ typedef struct	s_data
 	void		*mlx;
 	void		*window;
 	t_img		img;
+	t_texture	text;
 }				t_data;
 
 
@@ -94,7 +96,7 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 void	ft_put_image(t_data *data);
-void	ft_raycasting(t_data *data, t_img *img);
+void	ft_raycasting(t_data *data, t_img *img, t_texture *text);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

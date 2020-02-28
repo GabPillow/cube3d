@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 14:59:04 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:25:31 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,18 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
 }
 
-void	ft_raycasting(t_data *data, t_img *img)
+void	ft_raycasting(t_data *data, t_img *img, t_texture *text)
 {
 	t_clc		clc;
 	int			x;
 	int			y;
+	int			xt;
+	int			yt;
 	int			drawst;
 	int			drawend;
 
 	x = 0;
+	xt = 0;
 	while (x < data->wd_w)
 	{
 		clc.camerax = 2 * x / (double)(data->wd_h) - 1;
@@ -90,21 +93,35 @@ void	ft_raycasting(t_data *data, t_img *img)
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
 		y = 0;
+		yt = 0;
 		while (y < data->wd_h)
 		{
 			if (y < drawst)
 				img->data[y * data->wd_w + x] = 16747640;
 			if (y >= drawst && y <= drawend)
 			{
-				clc.color = 8558335;
 				if (clc.side == 1)
+				{
+					if (yt == 32)
+						yt = 0;
+					if (xt == 32)
+						xt = 0;
+					clc.color = text->data[yt * 32 + xt];
+				}
+				else
+				{
+					yt = 0;
+					xt = 0;
 					clc.color = 7247615;
+				}
 				img->data[y * data->wd_w + x] = clc.color;
+				yt++;
 			}
 			if (y > drawend)
 				img->data[y * data->wd_w + x] = 16737400;
 			y++;
 		}
+		xt++;
 		x++;
 	}
 }

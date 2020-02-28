@@ -1,32 +1,16 @@
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int main()
 {
-    t_data  data;
-    int     i;
+	t_data data;
+	t_texture text;
 
-    i = 0;
-    if (argc == 2)
-    {
-        parsing_data(argv[1], &data);
-        printf("MAP=\n");
-        while (i < data.map_h)
-        {
-            printf("%.*s\n", data.map_w, data.map[i]);
-            i++;
-        }
-        printf("MAP_W=%d\n", data.map_w);   
-        printf("MAP_H=%d\n", data.map_h);
-        printf("POSX=%f\n", data.posx);
-        printf("POSY=%f\n", data.posy);
-        printf("DIRX=%f\n", data.dirx);
-        printf("DIRY=%f\n", data.diry);
-        printf("PLANEX=%f\n", data.planex);
-        printf("PLANEY=%f\n", data.planey);
-        printf("WD_H=%d\n", data.wd_h);
-        printf("WD_w=%d\n", data.wd_w);
-        ft_strdel(&data.map[0]);
-        free(data.map);
-    }
+	text.width = 32;
+	text.height = 32;
+	data.mlx = mlx_init();
+	data.window = mlx_new_window(data.mlx, 800, 400, "test");
+	text.id  = mlx_xpm_file_to_image(data.mlx, "wood.xpm", &text.height, &text.width);
+	mlx_put_image_to_window(data.mlx, data.window, text.id, 0, 0);
+	mlx_loop(data.mlx);
     return (0);
 }

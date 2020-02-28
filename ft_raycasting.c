@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/26 17:20:26 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 14:59:04 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ void	ft_raycasting(t_data *data, t_img *img)
 	int			drawend;
 
 	x = 0;
-	y = 0;
-	while (x < data->wd_w - 1)
+	while (x < data->wd_w)
 	{
 		clc.camerax = 2 * x / (double)(data->wd_h) - 1;
 		clc.dirx = data->dirx + data->planex * clc.camerax;
@@ -90,8 +89,8 @@ void	ft_raycasting(t_data *data, t_img *img)
 		drawend = clc.hline / 2 + data->wd_h / 2;
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
-		y = -data->wd_h;
-		while (y < data->wd_h - 1)
+		y = 0;
+		while (y < data->wd_h)
 		{
 			if (y < drawst)
 				img->data[y * data->wd_w + x] = 16747640;

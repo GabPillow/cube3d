@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 17:25:31 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 18:46:56 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_raycasting(t_data *data, t_img *img, t_texture *text)
 	int			y;
 	int			xt;
 	int			yt;
+	double		wallx;
 	int			drawst;
 	int			drawend;
 
 	x = 0;
-	xt = 0;
 	while (x < data->wd_w)
 	{
 		clc.camerax = 2 * x / (double)(data->wd_h) - 1;
@@ -87,41 +87,37 @@ void	ft_raycasting(t_data *data, t_img *img, t_texture *text)
 		clc.mapy = (int)data->posy;
 		ft_calcul_vec_dist(&clc, data);
 		ft_calcul_wall(&clc, data);
+		if ( clc.side == 1)
+			wallx = data->posx + ((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry) * clc.dirx;
+		else
+			wallx = data->posy + ((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx) * clc.diry;
+		wallx -= floor((wallx));
+		xt = (int)(wallx * text->width);
+		if ((clc.side == 0 && clc.dirx > 0) || (clc.side == 1 && clc.dirx < 0))
+			xt = text->width - xt - 1;
 		clc.hline = (int)(data->wd_h / clc.perpwalldist);
 		drawst = -clc.hline / 2 + data->wd_h / 2;
 		drawend = clc.hline / 2 + data->wd_h / 2;
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
 		y = 0;
-		yt = 0;
 		while (y < data->wd_h)
 		{
 			if (y < drawst)
 				img->data[y * data->wd_w + x] = 16747640;
 			if (y >= drawst && y <= drawend)
 			{
+				yt = (y * 2 - data->wd_h + clc.hline) * (text->height / 2) / clc.hline;
 				if (clc.side == 1)
-				{
-					if (yt == 32)
-						yt = 0;
-					if (xt == 32)
-						xt = 0;
 					clc.color = text->data[yt * 32 + xt];
-				}
 				else
-				{
-					yt = 0;
-					xt = 0;
 					clc.color = 7247615;
-				}
 				img->data[y * data->wd_w + x] = clc.color;
-				yt++;
 			}
 			if (y > drawend)
 				img->data[y * data->wd_w + x] = 16737400;
 			y++;
 		}
-		xt++;
 		x++;
 	}
 }

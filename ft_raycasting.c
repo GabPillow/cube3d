@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 18:46:56 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/28 19:00:27 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
 }
 
-void	ft_raycasting(t_data *data, t_img *img, t_texture *text)
+void	ft_raycasting(t_data *data, t_img *img, t_texture *text, t_texture *text2)
 {
 	t_clc		clc;
 	int			x;
@@ -111,7 +111,7 @@ void	ft_raycasting(t_data *data, t_img *img, t_texture *text)
 				if (clc.side == 1)
 					clc.color = text->data[yt * 32 + xt];
 				else
-					clc.color = 7247615;
+					clc.color = text2->data[yt * 512 + xt];
 				img->data[y * data->wd_w + x] = clc.color;
 			}
 			if (y > drawend)

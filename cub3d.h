@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 18:59:04 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:28:32 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ typedef struct	s_texture
 	int			endian;
 }				t_texture;
 
+typedef struct	s_alltexture
+{
+	t_texture	south;
+	t_texture	north;
+	t_texture	east;
+	t_texture	west;
+	double		wallx;
+}				t_alltexture;
+
 typedef	struct	s_img
 {
 	void		*img_ptr;
@@ -72,23 +81,22 @@ typedef	struct	s_clc
 
 typedef struct	s_data
 {
-	char		**map;
-	int			map_w;
-	int			map_h;
-	double		posx;
-	double		posy;
-	double		dirx;
-	double		diry;
-	double		planex;
-	double		planey;
-	int			wd_h;
-	int			wd_w;
-	void		*mlx;
-	void		*window;
-	t_img		img;
-	t_texture	text;
-	t_texture	text2;
-}				t_data;
+	char			**map;
+	int				map_w;
+	int				map_h;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
+	int				wd_h;
+	int				wd_w;
+	void			*mlx;
+	void			*window;
+	t_img			img;
+	t_alltexture	list;
+}					t_data;
 
 
 void	move_forward(t_data *data);
@@ -97,7 +105,7 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 void	ft_put_image(t_data *data);
-void	ft_raycasting(t_data *data, t_img *img, t_texture *text, t_texture *text2);
+void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

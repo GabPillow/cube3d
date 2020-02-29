@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 19:00:27 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:30:43 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,13 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
 }
 
-void	ft_raycasting(t_data *data, t_img *img, t_texture *text, t_texture *text2)
+void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list)
 {
 	t_clc		clc;
 	int			x;
 	int			y;
 	int			xt;
 	int			yt;
-	double		wallx;
 	int			drawst;
 	int			drawend;
 
@@ -88,11 +87,11 @@ void	ft_raycasting(t_data *data, t_img *img, t_texture *text, t_texture *text2)
 		ft_calcul_vec_dist(&clc, data);
 		ft_calcul_wall(&clc, data);
 		if ( clc.side == 1)
-			wallx = data->posx + ((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry) * clc.dirx;
+			list->wallx = data->posx + ((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry) * clc.dirx;
 		else
-			wallx = data->posy + ((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx) * clc.diry;
-		wallx -= floor((wallx));
-		xt = (int)(wallx * text->width);
+			list->wallx = data->posy + ((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx) * clc.diry;
+		list->wallx -= floor((list->wallx));
+		xt = (int)(list->wallx * text->width);
 		if ((clc.side == 0 && clc.dirx > 0) || (clc.side == 1 && clc.dirx < 0))
 			xt = text->width - xt - 1;
 		clc.hline = (int)(data->wd_h / clc.perpwalldist);

@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 12:49:18 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 18:58:49 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:28:14 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_put_image(t_data *data)
 {
-	ft_raycasting(data, &data->img, &data->text, &data->text2);
+	ft_raycasting(data, &data->img, &data->list);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
 }

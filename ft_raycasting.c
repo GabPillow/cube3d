@@ -6,13 +6,13 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 15:19:15 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:02:33 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_txt	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
+static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt txt)
 {
 	if (clc->side == 1)
 		clc->wallx = data->posx + ((clc->mapy - data->posy + \
@@ -21,12 +21,11 @@ static t_txt	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
 		clc->wallx = data->posy + ((clc->mapx - data->posx + \
 		(1 - clc->stepx) / 2) / clc->dirx) * clc->diry;
 	clc->wallx -= floor((clc->wallx));
-	clc->xt = (int)(clc->wallx * txt->width);
+	clc->xt = (int)(clc->wallx * txt.width);
 	if ((clc->side == 0 && clc->dirx > 0) || \
 	(clc->side == 1 && clc->dirx < 0))
-		clc->xt = txt->width - clc->xt - 1;
+		clc->xt = txt.width - clc->xt - 1;
 	clc->hline = (int)(data->wd_h / clc->perpwalldist);
-	return (*txt);
 }
 
 static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
@@ -55,9 +54,10 @@ static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
 	}
 }
 
-static void	ft_calcul_wall(t_clc *clc, t_data *data)
+static t_txt	ft_calcul_wall(t_clc *clc, t_data *data, t_alltxt *lst)
 {
 	int	hit;
+	t_txt	txt;
 
 	hit = 0;
 	while (!hit)
@@ -67,21 +67,19 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 			clc->sidedistx += clc->deltadistx;
 			clc->mapx += clc->stepx;
 			clc->side = 0;
-			printf("|HERE:%f", clc->sidedisty);
+			clc->dirx < 0 ? txt = lst->north : lst->south;
 		}
 		else
 		{
 			clc->sidedisty += clc->deltadisty;
 			clc->mapy += clc->stepy;
 			clc->side = 1;
+			clc->diry < 0 ? txt = lst->west : lst->east;
 		}
 		if (data->map[clc->mapx][clc->mapy] != '0')
 			hit = 1;
 	}
-	if (clc->side == 0)
-		clc->perpwalldist = fabs((clc->mapx - data->posx + (1 - clc->stepx) / 2) / clc->dirx);
-	else
-		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
+	return (txt);
 }
 
 void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list)
@@ -103,16 +101,18 @@ void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list)
 		clc.mapx = (int)data->posx;
 		clc.mapy = (int)data->posy;
 		ft_calcul_vec_dist(&clc, data);
-		ft_calcul_wall(&clc, data);
-		if (clc.side == 1)
-			txt = ft_calcul_text(&clc, data, &list->north);
+		txt = ft_calcul_wall(&clc, data, list);
+		if (clc.side == 0)
+			clc.perpwalldist = fabs((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx);
 		else
-			txt = ft_calcul_text(&clc, data, &list->south);
+			clc.perpwalldist = fabs((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry);
+		ft_calcul_text(&clc, data, txt);
 		drawst = -clc.hline / 2 + data->wd_h / 2;
 		drawend = clc.hline / 2 + data->wd_h / 2;
 		drawst < 0 ? drawst = 0 : drawst;
 		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
 		y = 0;
+		printf("|%d|",clc.xt);
 		while (y < data->wd_h)
 		{
 			if (y < drawst)

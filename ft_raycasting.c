@@ -6,11 +6,28 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/29 17:30:43 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:19:15 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static t_txt	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
+{
+	if (clc->side == 1)
+		clc->wallx = data->posx + ((clc->mapy - data->posy + \
+		(1 - clc->stepy) / 2) / clc->diry) * clc->dirx;
+	else
+		clc->wallx = data->posy + ((clc->mapx - data->posx + \
+		(1 - clc->stepx) / 2) / clc->dirx) * clc->diry;
+	clc->wallx -= floor((clc->wallx));
+	clc->xt = (int)(clc->wallx * txt->width);
+	if ((clc->side == 0 && clc->dirx > 0) || \
+	(clc->side == 1 && clc->dirx < 0))
+		clc->xt = txt->width - clc->xt - 1;
+	clc->hline = (int)(data->wd_h / clc->perpwalldist);
+	return (*txt);
+}
 
 static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
 {
@@ -50,6 +67,7 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 			clc->sidedistx += clc->deltadistx;
 			clc->mapx += clc->stepx;
 			clc->side = 0;
+			printf("|HERE:%f", clc->sidedisty);
 		}
 		else
 		{
@@ -66,12 +84,12 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		clc->perpwalldist = fabs((clc->mapy - data->posy + (1 - clc->stepy) / 2) / clc->diry);
 }
 
-void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list)
+void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list)
 {
 	t_clc		clc;
+	t_txt		txt;
 	int			x;
 	int			y;
-	int			xt;
 	int			yt;
 	int			drawst;
 	int			drawend;
@@ -86,15 +104,10 @@ void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list)
 		clc.mapy = (int)data->posy;
 		ft_calcul_vec_dist(&clc, data);
 		ft_calcul_wall(&clc, data);
-		if ( clc.side == 1)
-			list->wallx = data->posx + ((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry) * clc.dirx;
+		if (clc.side == 1)
+			txt = ft_calcul_text(&clc, data, &list->north);
 		else
-			list->wallx = data->posy + ((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx) * clc.diry;
-		list->wallx -= floor((list->wallx));
-		xt = (int)(list->wallx * text->width);
-		if ((clc.side == 0 && clc.dirx > 0) || (clc.side == 1 && clc.dirx < 0))
-			xt = text->width - xt - 1;
-		clc.hline = (int)(data->wd_h / clc.perpwalldist);
+			txt = ft_calcul_text(&clc, data, &list->south);
 		drawst = -clc.hline / 2 + data->wd_h / 2;
 		drawend = clc.hline / 2 + data->wd_h / 2;
 		drawst < 0 ? drawst = 0 : drawst;
@@ -106,12 +119,8 @@ void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list)
 				img->data[y * data->wd_w + x] = 16747640;
 			if (y >= drawst && y <= drawend)
 			{
-				yt = (y * 2 - data->wd_h + clc.hline) * (text->height / 2) / clc.hline;
-				if (clc.side == 1)
-					clc.color = text->data[yt * 32 + xt];
-				else
-					clc.color = text2->data[yt * 512 + xt];
-				img->data[y * data->wd_w + x] = clc.color;
+				yt = (y * 2 - data->wd_h + clc.hline) * (txt.height / 2) / clc.hline;
+				img->data[y * data->wd_w + x] = txt.data[yt * txt.width + clc.xt];
 			}
 			if (y > drawend)
 				img->data[y * data->wd_w + x] = 16737400;

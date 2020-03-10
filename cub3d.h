@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/29 17:28:32 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/10 15:11:06 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define SPW 0.15
 # define SPT 0.15
 
-typedef struct	s_texture
+typedef struct	s_txt
 {
 	void		*id;
 	int			*data;
@@ -40,16 +40,15 @@ typedef struct	s_texture
 	int			size_l;
 	int			bpp;
 	int			endian;
-}				t_texture;
+}				t_txt;
 
-typedef struct	s_alltexture
+typedef struct	s_alltxt
 {
-	t_texture	south;
-	t_texture	north;
-	t_texture	east;
-	t_texture	west;
-	double		wallx;
-}				t_alltexture;
+	t_txt		south;
+	t_txt		north;
+	t_txt		east;
+	t_txt		west;
+}				t_alltxt;
 
 typedef	struct	s_img
 {
@@ -77,6 +76,8 @@ typedef	struct	s_clc
 	int			mapx;
 	int			mapy;
 	int			color;
+	int			xt;
+	double		wallx;
 }				t_clc;
 
 typedef struct	s_data
@@ -95,7 +96,7 @@ typedef struct	s_data
 	void			*mlx;
 	void			*window;
 	t_img			img;
-	t_alltexture	list;
+	t_alltxt	list;
 }					t_data;
 
 
@@ -105,7 +106,7 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 void	ft_put_image(t_data *data);
-void	ft_raycasting(t_data *data, t_img *img, t_alltexture *list);
+void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

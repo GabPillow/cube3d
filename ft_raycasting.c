@@ -6,26 +6,56 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 17:02:33 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:55:29 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt txt)
+static void	ft_draw_img(t_clc *clc, t_data *data, t_txt *txt, t_img *img)
 {
-	if (clc->side == 1)
+	int	y;
+	int	yt;
+	int	drawst;
+	int	drawend;
+
+	drawst = -clc->hline / 2 + data->wd_h / 2;
+	drawend = clc->hline / 2 + data->wd_h / 2;
+	drawst < 0 ? drawst = 0 : drawst;
+	drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
+	y = 0;
+	while (y < data->wd_h)
+	{
+		if (y < drawst)
+			img->data[y * data->wd_w + clc->x] = 16747640;
+		if (y >= drawst && y <= drawend)
+		{
+			yt = (y * 2 - data->wd_h + clc->hline) * (txt->height / 2) \
+			/ clc->hline;
+			img->data[y * data->wd_w + clc->x] = txt->data[yt * txt->width + \
+			clc->xt];
+		}
+		if (y > drawend)
+			img->data[y * data->wd_w + clc->x] = 16737400;
+		y++;
+	}
+}
+
+static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
+{
+	if (clc->side < 0)
 		clc->wallx = data->posx + ((clc->mapy - data->posy + \
 		(1 - clc->stepy) / 2) / clc->diry) * clc->dirx;
 	else
 		clc->wallx = data->posy + ((clc->mapx - data->posx + \
 		(1 - clc->stepx) / 2) / clc->dirx) * clc->diry;
 	clc->wallx -= floor((clc->wallx));
-	clc->xt = (int)(clc->wallx * txt.width);
-	if ((clc->side == 0 && clc->dirx > 0) || \
-	(clc->side == 1 && clc->dirx < 0))
-		clc->xt = txt.width - clc->xt - 1;
+	clc->xt = (int)(clc->wallx * txt->width);
+	if ((clc->side > 0 && clc->dirx > 0) || \
+	(clc->side < 0 && clc->dirx < 0))
+		clc->xt = txt->width - clc->xt - 1;
 	clc->hline = (int)(data->wd_h / clc->perpwalldist);
+	ft_draw_img(clc, data, txt, &data->img);
 }
 
 static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
@@ -54,10 +84,9 @@ static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
 	}
 }
 
-static t_txt	ft_calcul_wall(t_clc *clc, t_data *data, t_alltxt *lst)
+static void	ft_calcul_wall(t_clc *clc, t_data *data)
 {
 	int	hit;
-	t_txt	txt;
 
 	hit = 0;
 	while (!hit)
@@ -66,66 +95,45 @@ static t_txt	ft_calcul_wall(t_clc *clc, t_data *data, t_alltxt *lst)
 		{
 			clc->sidedistx += clc->deltadistx;
 			clc->mapx += clc->stepx;
-			clc->side = 0;
-			clc->dirx < 0 ? txt = lst->north : lst->south;
+			clc->dirx < 0 ? clc->side = NORTH : SOUTH;
 		}
 		else
 		{
 			clc->sidedisty += clc->deltadisty;
 			clc->mapy += clc->stepy;
-			clc->side = 1;
-			clc->diry < 0 ? txt = lst->west : lst->east;
+			clc->diry < 0 ? clc->side = WEST : EST;
 		}
 		if (data->map[clc->mapx][clc->mapy] != '0')
 			hit = 1;
 	}
-	return (txt);
 }
 
-void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list)
+void	ft_raycasting(t_data *data, t_alltxt *list)
 {
 	t_clc		clc;
-	t_txt		txt;
-	int			x;
-	int			y;
-	int			yt;
-	int			drawst;
-	int			drawend;
 
-	x = 0;
-	while (x < data->wd_w)
+	clc.x = 0;
+	while (clc.x < data->wd_w)
 	{
-		clc.camerax = 2 * x / (double)(data->wd_h) - 1;
+		clc.camerax = 2 * clc.x / (double)(data->wd_h) - 1;
 		clc.dirx = data->dirx + data->planex * clc.camerax;
 		clc.diry = data->diry + data->planey * clc.camerax;
 		clc.mapx = (int)data->posx;
 		clc.mapy = (int)data->posy;
 		ft_calcul_vec_dist(&clc, data);
-		txt = ft_calcul_wall(&clc, data, list);
-		if (clc.side == 0)
+		ft_calcul_wall(&clc, data);
+		if (clc.side > 0)
 			clc.perpwalldist = fabs((clc.mapx - data->posx + (1 - clc.stepx) / 2) / clc.dirx);
 		else
 			clc.perpwalldist = fabs((clc.mapy - data->posy + (1 - clc.stepy) / 2) / clc.diry);
-		ft_calcul_text(&clc, data, txt);
-		drawst = -clc.hline / 2 + data->wd_h / 2;
-		drawend = clc.hline / 2 + data->wd_h / 2;
-		drawst < 0 ? drawst = 0 : drawst;
-		drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
-		y = 0;
-		printf("|%d|",clc.xt);
-		while (y < data->wd_h)
-		{
-			if (y < drawst)
-				img->data[y * data->wd_w + x] = 16747640;
-			if (y >= drawst && y <= drawend)
-			{
-				yt = (y * 2 - data->wd_h + clc.hline) * (txt.height / 2) / clc.hline;
-				img->data[y * data->wd_w + x] = txt.data[yt * txt.width + clc.xt];
-			}
-			if (y > drawend)
-				img->data[y * data->wd_w + x] = 16737400;
-			y++;
-		}
-		x++;
+		if (clc.side == NORTH)
+			ft_calcul_text(&clc, data, &list->north);
+		if (clc.side == SOUTH)
+			ft_calcul_text(&clc, data, &list->south);
+		if (clc.side == EST)
+			ft_calcul_text(&clc, data, &list->south);
+		if (clc.side == WEST)
+			ft_calcul_text(&clc, data, &list->west);
+		clc.x++;
 	}
 }

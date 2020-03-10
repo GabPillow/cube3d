@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 15:11:06 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/10 17:57:18 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+# define NORTH 1
+# define SOUTH 2
+# define EST -1
+# define WEST -2
 # define K_S 1
 # define K_W 13
 # define K_A 0
@@ -77,6 +81,7 @@ typedef	struct	s_clc
 	int			mapy;
 	int			color;
 	int			xt;
+	int			x;
 	double		wallx;
 }				t_clc;
 
@@ -106,7 +111,7 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 void	ft_put_image(t_data *data);
-void	ft_raycasting(t_data *data, t_img *img, t_alltxt *list);
+void	ft_raycasting(t_data *data, t_alltxt *list);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);

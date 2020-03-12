@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 17:57:18 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:59:55 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 
 # define NORTH 1
 # define SOUTH 2
-# define EST -1
+# define EAST -1
 # define WEST -2
+# define K_ESC 53
 # define K_S 1
 # define K_W 13
 # define K_A 0
@@ -85,7 +86,7 @@ typedef	struct	s_clc
 	double		wallx;
 }				t_clc;
 
-typedef struct	s_data
+typedef struct		s_data
 {
 	char			**map;
 	int				map_w;
@@ -101,7 +102,7 @@ typedef struct	s_data
 	void			*mlx;
 	void			*window;
 	t_img			img;
-	t_alltxt	list;
+	t_alltxt		list;
 }					t_data;
 
 
@@ -115,4 +116,5 @@ void	ft_raycasting(t_data *data, t_alltxt *list);
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
 void	init_data(char *map, t_data *data);
+void	ft_close_window(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 17:55:29 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/12 15:45:59 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
 	clc->wallx -= floor((clc->wallx));
 	clc->xt = (int)(clc->wallx * txt->width);
 	if ((clc->side > 0 && clc->dirx > 0) || \
-	(clc->side < 0 && clc->dirx < 0))
+	(clc->side < 0 && clc->diry < 0))
 		clc->xt = txt->width - clc->xt - 1;
 	clc->hline = (int)(data->wd_h / clc->perpwalldist);
 	ft_draw_img(clc, data, txt, &data->img);
@@ -95,13 +95,13 @@ static void	ft_calcul_wall(t_clc *clc, t_data *data)
 		{
 			clc->sidedistx += clc->deltadistx;
 			clc->mapx += clc->stepx;
-			clc->dirx < 0 ? clc->side = NORTH : SOUTH;
+			clc->side = clc->dirx < 0 ? NORTH : SOUTH;
 		}
 		else
 		{
 			clc->sidedisty += clc->deltadisty;
 			clc->mapy += clc->stepy;
-			clc->diry < 0 ? clc->side = WEST : EST;
+			clc->side = clc->diry < 0 ? WEST : EAST;
 		}
 		if (data->map[clc->mapx][clc->mapy] != '0')
 			hit = 1;
@@ -130,8 +130,8 @@ void	ft_raycasting(t_data *data, t_alltxt *list)
 			ft_calcul_text(&clc, data, &list->north);
 		if (clc.side == SOUTH)
 			ft_calcul_text(&clc, data, &list->south);
-		if (clc.side == EST)
-			ft_calcul_text(&clc, data, &list->south);
+		if (clc.side == EAST)
+			ft_calcul_text(&clc, data, &list->east);
 		if (clc.side == WEST)
 			ft_calcul_text(&clc, data, &list->west);
 		clc.x++;

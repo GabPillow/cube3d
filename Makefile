@@ -6,7 +6,7 @@
 #    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/02/28 16:36:59 by grochefo         ###   ########.fr        #
+#    Updated: 2020/03/12 16:00:36 by grochefo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ CUB3D_FILES_C = libft/ft_strjoinplus.c \
 				events/move_forward.c \
 				events/move_left.c \
 				events/move_right.c \
-				events/turning_cam.c
+				events/turning_cam.c \
+				events/ft_close_window.c
 
 CUB3D_INC = cub3d.h
 

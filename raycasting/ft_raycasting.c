@@ -6,11 +6,11 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 15:45:59 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:07:52 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	ft_draw_img(t_clc *clc, t_data *data, t_txt *txt, t_img *img)
 {
@@ -28,7 +28,7 @@ static void	ft_draw_img(t_clc *clc, t_data *data, t_txt *txt, t_img *img)
 	{
 		if (y < drawst)
 			img->data[y * data->wd_w + clc->x] = 16747640;
-		if (y >= drawst && y <= drawend)
+		if (y >= drawst && y < drawend)
 		{
 			yt = (y * 2 - data->wd_h + clc->hline) * (txt->height / 2) \
 			/ clc->hline;
@@ -56,56 +56,6 @@ static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
 		clc->xt = txt->width - clc->xt - 1;
 	clc->hline = (int)(data->wd_h / clc->perpwalldist);
 	ft_draw_img(clc, data, txt, &data->img);
-}
-
-static void	ft_calcul_vec_dist(t_clc *clc, t_data *data)
-{
-	clc->deltadistx = fabs(1 / clc->dirx);
-	clc->deltadisty = fabs(1 / clc->diry);
-	if (clc->dirx < 0)
-	{
-		clc->stepx = -1;
-		clc->sidedistx = (data->posx - clc->mapx) * clc->deltadistx;
-	}
-	else
-	{
-		clc->stepx = 1;
-		clc->sidedistx = (clc->mapx + 1.0 - data->posx) * clc->deltadistx;
-	}
-	if (clc->diry < 0)
-	{
-		clc->stepy = -1;
-		clc->sidedisty = (data->posy - clc->mapy) * clc->deltadisty;
-	}
-	else
-	{
-		clc->stepy = 1;
-		clc->sidedisty = (clc->mapy + 1.0 - data->posy) * clc->deltadisty;
-	}
-}
-
-static void	ft_calcul_wall(t_clc *clc, t_data *data)
-{
-	int	hit;
-
-	hit = 0;
-	while (!hit)
-	{
-		if (clc->sidedistx < clc->sidedisty)
-		{
-			clc->sidedistx += clc->deltadistx;
-			clc->mapx += clc->stepx;
-			clc->side = clc->dirx < 0 ? NORTH : SOUTH;
-		}
-		else
-		{
-			clc->sidedisty += clc->deltadisty;
-			clc->mapy += clc->stepy;
-			clc->side = clc->diry < 0 ? WEST : EAST;
-		}
-		if (data->map[clc->mapx][clc->mapy] != '0')
-			hit = 1;
-	}
 }
 
 void	ft_raycasting(t_data *data, t_alltxt *list)

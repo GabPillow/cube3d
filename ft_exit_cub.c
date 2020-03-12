@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_texture.c                                   :+:      :+:    :+:   */
+/*   ft_exit_cub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 15:47:53 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/28 16:36:46 by grochefo         ###   ########.fr       */
+/*   Created: 2020/03/12 16:51:37 by grochefo          #+#    #+#             */
+/*   Updated: 2020/03/12 16:58:27 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_put_texture(int *img, t_texture text, int drawend)
+void	ft_exit_cub(t_data *data)
 {
-	while (y < drawend)
-	{
-		
-	}
+	mlx_clear_window(data->mlx, data->window);
+	mlx_destroy_window(data->mlx, data->window);
+	mlx_destroy_image(data->mlx, data->img.img_ptr);
+	mlx_destroy_image(data->mlx, data->list.east.id);
+	mlx_destroy_image(data->mlx, data->list.west.id);
+	mlx_destroy_image(data->mlx, data->list.north.id);
+	mlx_destroy_image(data->mlx, data->list.south.id);
+	exit(1);
 }

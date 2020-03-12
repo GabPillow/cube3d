@@ -6,7 +6,7 @@
 #    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/03/12 16:00:36 by grochefo         ###   ########.fr        #
+#    Updated: 2020/03/12 17:09:38 by grochefo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,10 @@ CUB3D_FILES_C = libft/ft_strjoinplus.c \
 				parsing_data/init_data.c \
 				ft_put_image.c \
 				cub3d.c \
-				ft_raycasting.c \
+				ft_exit_cub.c \
+				raycasting/ft_raycasting.c \
+				raycasting/ft_calcul_wall.c \
+				raycasting/ft_calcul_vec_dist.c \
 				events/move_back.c \
 				events/move_forward.c \
 				events/move_left.c \

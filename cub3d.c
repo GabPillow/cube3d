@@ -6,7 +6,7 @@
 /*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 12:58:36 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 16:07:09 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:36:28 by grochefo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				main(int argc, char **argv)
 		data.list.south.data = (int*)mlx_get_data_addr(data.list.south.id, &data.list.south.bpp, &data.list.south.size_l, &data.list.south.endian);
 		data.list.east.id  = mlx_xpm_file_to_image(data.mlx, "tiger.xpm", &data.list.east.height, &data.list.east.width);
 		data.list.east.data = (int*)mlx_get_data_addr(data.list.east.id, &data.list.east.bpp, &data.list.east.size_l, &data.list.east.endian);
-		data.list.west.id  = mlx_xpm_file_to_image(data.mlx, "metal.xpm", &data.list.west.height, &data.list.west.width);
+		data.list.west.id  = mlx_xpm_file_to_image(data.mlx, "wall.XPM", &data.list.west.height, &data.list.west.width);
 		data.list.west.data = (int*)mlx_get_data_addr(data.list.west.id, &data.list.west.bpp, &data.list.west.size_l, &data.list.west.endian);
 		ft_put_image(&data);
 		mlx_hook(data.window, 2, 0, event, &data);

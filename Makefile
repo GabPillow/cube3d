@@ -54,8 +54,7 @@ all: $(NAME)
 
 $(NAME) : $(CUB3D_FILES_C) $(CUB3D_INC)
 		echo "\033[1;33mCUB3D compiling...\033[0m"
-		gcc -Wall -Wextra -Werror -I minilibx -L minilibx -lmlx -framework \
-		OpenGL -framework AppKit $(CUB3D_FILES_C)
+		gcc $(CUB3D_FILES_C) libmlx.a -Wall -Werror -Wextra -lXext -lX11 -lm -lbsd
 		echo "\033[32mCUB3D compilation over.\033[0m"
 clean :
 	echo "\033[1;33mCleaning CUB3D...\033[0m"

@@ -53,7 +53,7 @@ int				main(int argc, char **argv)
 		data.list.west.id  = mlx_xpm_file_to_image(data.mlx, "wall.XPM", &data.list.west.height, &data.list.west.width);
 		data.list.west.data = (int*)mlx_get_data_addr(data.list.west.id, &data.list.west.bpp, &data.list.west.size_l, &data.list.west.endian);
 		ft_put_image(&data);
-		mlx_hook(data.window, 2, 0, event, &data);
+		mlx_hook(data.window, 2, 1L << 0, event, &data);
 		mlx_loop(data.mlx);
 		return (1);
 	}

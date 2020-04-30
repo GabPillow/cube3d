@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 12:58:36 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 17:36:28 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:24:24 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static int		event(int keycode, t_data *data)
 {
-	if (keycode == K_W)
+	printf("%d\n", keycode);
+	if (keycode == K_Z)
 		move_forward(data);
 	else if (keycode == K_S)
 		move_back(data);
-	else if (keycode == K_A)
+	else if (keycode == K_Q)
 		move_left(data);
 	else if (keycode == K_D)
 		move_right(data);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+         #
+#    By: suzie <suzie@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/03/12 17:09:38 by grochefo         ###   ########.fr        #
+#    Updated: 2020/04/30 18:31:38 by suzie            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ all: $(NAME)
 
 $(NAME) : $(CUB3D_FILES_C) $(CUB3D_INC)
 		echo "\033[1;33mCUB3D compiling...\033[0m"
-		gcc $(CUB3D_FILES_C) libmlx.a -Wall -Werror -Wextra -lXext -lX11 -lm -lbsd
+		gcc -Wall -Werror -Wextra $(CUB3D_FILES_C) libmlx.a -Wall -Werror -Wextra -lXext -lX11 -lm -lbsd -o cub3d
 		echo "\033[32mCUB3D compilation over.\033[0m"
 clean :
 	echo "\033[1;33mCleaning CUB3D...\033[0m"
@@ -64,6 +64,3 @@ clean :
 fclean: clean
 			echo "\033[0;35m$(NAME) executable removed.\033[0m"
 re: fclean all
-
-#  -I minilibx -L minilibx -lmlx -framework
-# 		OpenGL -framework AppKit 

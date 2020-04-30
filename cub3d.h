@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 17:09:02 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/04/30 18:26:16 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 # define EAST -1
 # define WEST -2
 # define K_ESC 65307
-# define K_S 65364
-# define K_W 65362
-# define K_A 65363
-# define K_D 65362
-# define K_ARRL 123
-# define K_ARRR 124
+# define K_Z 122
+# define K_Q 113
+# define K_S 115
+# define K_D 100
+# define K_ARRL 65361
+# define K_ARRR 65363
 # define SPW 0.15
 # define SPT 0.15
 

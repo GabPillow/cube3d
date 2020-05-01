@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_put_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 12:49:18 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/10 17:45:09 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/05/01 16:14:55 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	ft_put_image(t_data *data)
 {

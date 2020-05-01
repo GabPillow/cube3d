@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_cub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:51:37 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 16:58:27 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/05/01 16:14:49 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	ft_exit_cub(t_data *data)
 {

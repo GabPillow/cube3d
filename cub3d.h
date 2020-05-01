@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/04/30 18:26:16 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/01 16:22:13 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct	s_txt
 {
 	void		*id;
 	int			*data;
-	int			x;
 	int			width;
 	int			height;
 	int			size_l;
@@ -53,6 +52,8 @@ typedef struct	s_alltxt
 	t_txt		north;
 	t_txt		east;
 	t_txt		west;
+	int			floor;
+	int			ceiling;
 }				t_alltxt;
 
 typedef	struct	s_img
@@ -105,18 +106,26 @@ typedef struct		s_data
 	t_alltxt		list;
 }					t_data;
 
-void	ft_exit_cub(t_data *data);
+int		event(int keycode, t_data *data);
+void	ft_close_window(t_data *data);
 void	move_forward(t_data *data);
 void	move_back(t_data *data);
 void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
-void	ft_put_image(t_data *data);
+
+void	init_data_map(char *map, t_data *data);
+void    init_position(char p, int x, int y, t_data *data);
+void    init_to_default(t_data *data);
+
 void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
-void	init_data(char *map, t_data *data);
-void	ft_close_window(t_data *data);
+
 void	ft_calcul_wall(t_clc *clc, t_data *data);
 void	ft_raycasting(t_data *data, t_alltxt *list);
 void	ft_calcul_vec_dist(t_clc *clc, t_data *data);
+
+void	ft_exit_cub(t_data *data);
+void	ft_put_image(t_data *data);
+void    ft_error(t_data data, char *s)
 #endif

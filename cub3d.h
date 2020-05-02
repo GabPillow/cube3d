@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/01 16:22:13 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/02 18:22:14 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,21 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 
+void    init_color(t_data *data, int color, char *line);
 void	init_data_map(char *map, t_data *data);
 void    init_position(char p, int x, int y, t_data *data);
+void	init_resolution(t_data *data, char *line);
+void    init_texture(t_data *data, t_txt *txt, char *line);
 void    init_to_default(t_data *data);
 
-void	parsing_data(char *path, t_data *data);
 void	line_to_tab(char *line, t_data *data);
+void	parsing_data(char *path, t_data *data);
 
+void	ft_calcul_vec_dist(t_clc *clc, t_data *data);
 void	ft_calcul_wall(t_clc *clc, t_data *data);
 void	ft_raycasting(t_data *data, t_alltxt *list);
-void	ft_calcul_vec_dist(t_clc *clc, t_data *data);
 
+void    ft_error(t_data *data, char *s);
 void	ft_exit_cub(t_data *data);
 void	ft_put_image(t_data *data);
-void    ft_error(t_data data, char *s)
 #endif

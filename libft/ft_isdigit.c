@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data_map.c                                    :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/01 17:59:58 by suzie            ###   ########.fr       */
+/*   Created: 2018/11/16 18:37:04 by grochefo          #+#    #+#             */
+/*   Updated: 2020/05/02 14:58:36 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "libft.h"
 
-void	init_data_map(char *map, t_data *data)
+int	ft_isdigit(int c)
 {
-	int	i;
-	int	x;
-	int	y;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	while (map[i])
-	{
-		if (map[i] != ' ' || map[i] != '0' || map[i] != '1' || map[i] != '2')
-			init_position(map[i], x, y, data);
-		if (map[i] == ' ' && map[i + 1] != 1)
-		if (x == data->map_w)
-		{
-			x = 0;
-			y++;
-		}
-		x++;
-		i++;
-	}
-	map[i] = '0';
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }

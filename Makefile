@@ -6,61 +6,93 @@
 #    By: suzie <suzie@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/04/30 18:31:38 by suzie            ###   ########.fr        #
+#    Updated: 2020/05/02 18:11:48 by suzie            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
-CUB3D_FILES_C = libft/ft_strjoinplus.c \
-				libft/get_next_line.c \
-				libft/ft_strdup.c \
-				libft/ft_strcpy.c \
-				libft/ft_strnew.c \
-				libft/ft_calloc.c \
-				libft/ft_strlen.c \
-				libft/ft_strcat.c \
-				libft/ft_memdel.c \
-				libft/ft_strdel.c \
-				libft/ft_memcpy.c \
-				libft/ft_bzero.c \
-				libft/ft_memset.c \
-				libft/ft_strncpy.c \
-				libft/ft_strndup.c \
-				libft/ft_strjoinnplus.c \
-				libft/ft_strlenn.c \
-				libft/ft_strncat.c \
-				parsing_data/parsing_data.c \
-				parsing_data/line_to_tab.c \
-				parsing_data/init_data.c \
-				ft_put_image.c \
-				cub3d.c \
-				ft_exit_cub.c \
-				raycasting/ft_raycasting.c \
-				raycasting/ft_calcul_wall.c \
-				raycasting/ft_calcul_vec_dist.c \
-				events/move_back.c \
-				events/move_forward.c \
-				events/move_left.c \
-				events/move_right.c \
-				events/turning_cam.c \
-				events/ft_close_window.c
+FLAGS = -Wall -Werror -Wextra
 
-CUB3D_INC = cub3d.h
+LIBS = libmlx.a cub3dlib.a
 
+EVENTS = event.c \
+		 ft_close_window.c \
+		 moveback.c \
+		 move_forward.c \
+		 move_left.c move_right.c
+
+INIT = init_color.c \
+	   init_data_map.c \
+	   init_position.c \
+	   init_resolution.c \
+	   init_texture.c \
+	   init_to_default.c
+	   
+LIBFT =	ft_atoi.c \
+		ft_bzero.c \
+		ft_calloc.c \
+		ft_isdigit.c \
+		ft_memcpy.c \
+		ft_memdel.c \
+		ft_memset.c \
+		ft_memdel.c \
+		ft_memset.c \
+		ft_strcat.c \
+		ft_strcpy.c \
+		ft_strdel.c \
+		ft_strdup.c \
+		ft_strjoinnplus.c \
+		ft_strjoinplus.c \
+		ft_strlen.c \
+		ft_strlenn.c \
+		ft_strncat.c \
+		ft_strncpy.c \
+		ft_strndup.c \
+		ft_strnew.c \
+		get_next_line.c
+
+PARSING_DATA = line_to_tab.c \
+			   parsing_data.c
+
+RAYCASTING = ft_calcul_vec_dist.c \
+			 ft_calcul_wall.c \
+			 ft_raycasting.c
+
+SRCS = ft_error.c \
+	   ft_exit_cub.c \
+	   ft_put_image.c
+
+CUB3D_INC = cub3d.h libft/libft.h
+
+ALL_SRCS = $(addprefix events/,$(EVENTS)) $(addprefix init/,$(INIT)) \
+		   $(addprefix libft/,$(LIBFT)) $(addprefix parsing_data/,$(PARSING_DATA)) \
+		   $(addprefix raycasting/,$(RAYCASTING)) $(addprefix SRCS/,$(SRCS))
+
+OBJ = $(EVENTS:.c=.o) $(INIT:.c=.o) $(LIBFT:.c=.o) $(PARSING_DATA:.c=.o) \
+		$(RAYCASTING:.c=.o) $(SRCS:.c=.o)
 .PHONY : clean fclean re all
 .SILENT : clean fclean re all $(NAME)
 all: $(NAME)
 
-$(NAME) : $(CUB3D_FILES_C) $(CUB3D_INC)
+$(NAME) : cub3dlib $(ALL_SRCS) $(CUB3D_INC)
 		echo "\033[1;33mCUB3D compiling...\033[0m"
-		gcc -Wall -Werror -Wextra $(CUB3D_FILES_C) libmlx.a -Wall -Werror -Wextra -lXext -lX11 -lm -lbsd -o cub3d
+		gcc -Wall -Werror -Wextra cub3d.c cub3dlib.a libmlx.a -Wall -Werror -Wextra -lXext -lX11 -lm -lbsd -o cub3d
+		rm -f cub3dlib.a
 		echo "\033[32mCUB3D compilation over.\033[0m"
+
+cub3dlib :
+	gcc $(FLAGS) -c $(ALL_SRCS) -I./
+	ar rc cub3dlib.a $(OBJS)
+	ranlib cub3dlib.a
+	rm -f $(OBJ)
+
 clean :
 	echo "\033[1;33mCleaning CUB3D...\033[0m"
 	rm -f $(NAME)
+	rm -f cub3dlib.a
 	echo "\033[0;35m$(NAME) executable removed.\033[0m"
 
 fclean: clean
-			echo "\033[0;35m$(NAME) executable removed.\033[0m"
+		echo "\033[0;35m$(NAME) executable removed.\033[0m"
 re: fclean all

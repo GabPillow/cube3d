@@ -29,5 +29,5 @@ void    init_position(char p, int x, int y, t_data *data)
 		data->planex = -0.66;
 	}
 	else
-		ft_error(&data, "Position have to be marked with : S N E W only");
+		ft_error(data, "None authorized caracter");
 }

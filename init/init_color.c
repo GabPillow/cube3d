@@ -1,15 +1,20 @@
 #include "../cub3d.h"
 
-void    init_color(t_data *data, int color, char *line)
+int    init_color(t_data *data, char *line)
 {
     int i;
     int true;
 
     true = 0;
-    i = 1;
+    i = 2;
+    if (line[1] != ' ')
+    {
+        ft_strdel(&line);
+        ft_error(data, "Params wrong for color");
+    }
     while (line[i])
     {
-        ft_isdigit(line[i]) || true ? true == 1 : 0;
+        ft_isdigit(line[i]) || true ? true = 1 : 0;
         if (!ft_isdigit(line[i]) && line[i] != ' ')
         {
             ft_strdel(&line);
@@ -22,10 +27,10 @@ void    init_color(t_data *data, int color, char *line)
         i++;
     while (ft_isdigit(line[i]))
         i++;
-    if (line[i])
+    if (line[i] || !true)
     {
         ft_strdel(&line);
         ft_error(data, "Params wrong for color");
     }
-	color = ft_atoi(line[1]);
+	return (ft_atoi(line + 1));
 }

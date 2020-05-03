@@ -6,7 +6,7 @@
 #    By: suzie <suzie@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/05/02 18:11:48 by suzie            ###   ########.fr        #
+#    Updated: 2020/05/03 16:34:21 by suzie            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBS = libmlx.a cub3dlib.a
 
 EVENTS = event.c \
 		 ft_close_window.c \
-		 moveback.c \
+		 move_back.c \
 		 move_forward.c \
 		 move_left.c move_right.c
 
@@ -67,7 +67,7 @@ CUB3D_INC = cub3d.h libft/libft.h
 
 ALL_SRCS = $(addprefix events/,$(EVENTS)) $(addprefix init/,$(INIT)) \
 		   $(addprefix libft/,$(LIBFT)) $(addprefix parsing_data/,$(PARSING_DATA)) \
-		   $(addprefix raycasting/,$(RAYCASTING)) $(addprefix SRCS/,$(SRCS))
+		   $(addprefix raycasting/,$(RAYCASTING)) $(addprefix srcs/,$(SRCS))
 
 OBJ = $(EVENTS:.c=.o) $(INIT:.c=.o) $(LIBFT:.c=.o) $(PARSING_DATA:.c=.o) \
 		$(RAYCASTING:.c=.o) $(SRCS:.c=.o)
@@ -91,6 +91,7 @@ clean :
 	echo "\033[1;33mCleaning CUB3D...\033[0m"
 	rm -f $(NAME)
 	rm -f cub3dlib.a
+	rm -f $(OBJ)
 	echo "\033[0;35m$(NAME) executable removed.\033[0m"
 
 fclean: clean

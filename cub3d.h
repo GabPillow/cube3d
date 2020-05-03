@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/02 18:22:14 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/03 16:30:37 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef	struct	s_clc
 typedef struct		s_data
 {
 	char			**map;
-	int				map_w;
 	int				map_h;
 	double			posx;
 	double			posy;
@@ -114,8 +113,8 @@ void	move_right(t_data *data);
 void	move_left(t_data *data);
 void	turning_cam(t_data *data, double speed);
 
-void    init_color(t_data *data, int color, char *line);
-void	init_data_map(char *map, t_data *data);
+int	    init_color(t_data *data, char *line);
+void	init_data_map(t_data *data);
 void    init_position(char p, int x, int y, t_data *data);
 void	init_resolution(t_data *data, char *line);
 void    init_texture(t_data *data, t_txt *txt, char *line);

@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:42:19 by grochefo          #+#    #+#             */
-/*   Updated: 2020/02/22 16:42:15 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/03 15:32:33 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@ void		line_to_tab(char *line, t_data *data)
 
 	b = 0;
 	i = 0;
-	while (i < data->map_h)
+	data->map = ft_calloc(data->map_h, sizeof(char*));
+	while (line[i])
 	{
-		data->map[i] = line + b;
-		b += data->map_w;
+		if (line[i] == '|')
+		{
+			ft_strndup(line[i - b], b);
+			b = 0;
+		}
 		i++;
+		b++;
 	}
+	ft_strdel(&line);
 }

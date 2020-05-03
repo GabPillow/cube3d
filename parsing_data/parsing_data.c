@@ -6,13 +6,13 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 16:41:40 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/03 16:31:32 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/03 18:43:35 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static	char check_line_tab(t_data *data, char *line)
+static	char *check_line_tab(t_data *data, char *line)
 {
 	int i;
 
@@ -25,18 +25,15 @@ static	char check_line_tab(t_data *data, char *line)
 			ft_error(data, "Map is not correct\n");
 		}
 	}
-	line = ft_strjoinplus(line, '|', 3);
+	line = ft_strjoinplus(line, "|", 3);
 	return (line);
 }
 
 static void info_exist(t_data *data, char *line)
 {
-	int i;
-
-	i = 0;
-	if (data->wd_h == 0 || !&data->list.north || !&data->list.south \
-	|| !&data->list.west || !&data->list.east || &data->list.floor == -1 \
-	|| &data->list.ceiling == -1 || !line)
+	if (data->wd_h == 0 || !data->list.north.id || !data->list.south.id \
+	|| !data->list.west.id || !data->list.east.id || data->list.floor == -1 \
+	|| data->list.ceiling == -1 || !line)
 	{
 		ft_strdel(&line);
 		ft_error(data, "Missing params configuration file\n");
@@ -59,7 +56,7 @@ static int check_line(t_data *data, char *line)
 	// else if (line[0] == 'S' && line[1] == ' ')
 	// 	init_texture(data->list.sprite, line);
 	else if (line[0] == 'F')
-		data->list.floor = (data, line);
+		data->list.floor = init_color(data, line);
 	else if (line[0] == 'C')
 		data->list.ceiling = init_color(data, line);
 	else if (line && ft_strlen(line))
@@ -74,11 +71,12 @@ void		parsing_data(char *path, t_data *data)
 	char		*tab;
 
 	tab = NULL;
+	fd = open(path, O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
 		if (check_line(data, line))
 			break;
-		free(&line);
+		ft_strdel(&line);
 	}
 	info_exist(data, line);
 	tab = ft_strjoinplus(tab, check_line_tab(data, line), 3);
@@ -87,7 +85,6 @@ void		parsing_data(char *path, t_data *data)
 		data->map_h++;
 		tab = ft_strjoinplus(tab, line, 3);
 	}
-	ft_strdel(&line);
 	close(fd);
 	line_to_tab(tab, data);
 	init_data_map(data);

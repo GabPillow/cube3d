@@ -13,11 +13,11 @@ void    init_texture(t_data *data, t_txt *txt, char *line)
     while (line[i] == ' ')
         i++;
     if (!(txt->data  = mlx_xpm_file_to_image(data->mlx, line + i, \
-    txt->height, txt->width)))
+    &txt->height, &txt->width)))
     {
         ft_strdel(&line);
         ft_error(data, "Wrong path for texture");
     }
-	txt->id = (int*)mlx_get_data_addr(txt->id, txt->bpp, \
-    txt->size_l, txt->endian);
+	txt->id = (int*)mlx_get_data_addr(txt->id, &txt->bpp, \
+    &txt->size_l, &txt->endian);
 }

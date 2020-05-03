@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:42:19 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/03 15:32:33 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/03 18:26:12 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		line_to_tab(char *line, t_data *data)
 	{
 		if (line[i] == '|')
 		{
-			ft_strndup(line[i - b], b);
+			ft_strndup(line + i - b, b);
 			b = 0;
 		}
 		i++;

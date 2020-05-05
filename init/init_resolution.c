@@ -28,7 +28,7 @@ void   init_resolution(t_data *data, char *line)
         if (!ft_isdigit(line[i]) && line[i] != ' ')
         {
             ft_strdel(&line);
-           ft_error(data, "Params wrong for resolution");
+            ft_error(data, "Params wrong for resolution");
         }
         i++;
     }
@@ -39,6 +39,8 @@ void   init_resolution(t_data *data, char *line)
     while (ft_isdigit(line[i]))
         i++;
     data->wd_h = ft_atoi(line + i);
+    while (line[i] == ' ')
+        i++;
     while (ft_isdigit(line[i]))
         i++;
     if (line[i])
@@ -46,5 +48,5 @@ void   init_resolution(t_data *data, char *line)
         ft_strdel(&line);
         ft_error(data, "Params wrong for resolution");
     }
-    correct_wd_size(data, line);       
+    correct_wd_size(data, line); 
 }

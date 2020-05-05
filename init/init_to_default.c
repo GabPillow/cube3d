@@ -22,8 +22,9 @@ static void texture_to_default(t_alltxt *lst)
 
 void    init_to_default(t_data *data)
 {
+    data->window = NULL;
     data->map = NULL;
-    data->map_h = 0;
+    data->map_h = 1;
 	data->posx = 0;
 	data->posy = 0;
 	data->dirx = 0;

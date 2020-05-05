@@ -1,0 +1,7 @@
+R 600 400
+NO ./textures/metal.xpm
+SO ./textures/rainbow.xpm
+WE ./textures/tiger.xpm
+EA ./textures/wall.xpm
+C 16747640
+F 16737400

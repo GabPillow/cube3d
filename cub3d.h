@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/03 16:30:37 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/06 15:00:50 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct		s_data
 {
 	char			**map;
 	int				map_h;
+	int				map_w;
 	double			posx;
 	double			posy;
 	double			dirx;

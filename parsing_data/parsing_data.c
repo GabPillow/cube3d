@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 16:41:40 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/05 19:24:37 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/06 15:10:06 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static	char *check_line_tab(t_data *data, char *line)
 		}
 		i++;
 	}
+	if ((int)ft_strlen(line) > data->map_w)
+		data->map_w = ft_strlen(line);
 	line = ft_strjoinplus(line, "|", 1);
 	return (line);
 }
@@ -86,20 +88,9 @@ void		parsing_data(char *path, t_data *data)
 	info_exist(data, line, ret);
 	tab = ft_strjoinplus(tab, check_line_tab(data, line), 3);
 	while (get_next_line(fd, &line))
-	{
 		tab = ft_strjoinplus(tab, check_line_tab(data, line), 3);
-		if (line)
-			puts("a");
-	}
 	tab = ft_strjoinplus(tab, check_line_tab(data, line), 3);
 	close(fd);
 	line_to_tab(tab, data);
-	int i;
-	i = 0;
-	while (i < data->map_h)
-	{
-		puts(data->map[i]);
-		i++;
-	}
-	// init_data_map(data);
+	init_data_map(data);
 }

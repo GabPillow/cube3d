@@ -6,7 +6,7 @@
 #    By: suzie <suzie@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/05/05 16:41:56 by suzie            ###   ########.fr        #
+#    Updated: 2020/05/06 18:06:43 by suzie            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ EVENTS = event.c \
 		 ft_close_window.c \
 		 move_back.c \
 		 move_forward.c \
-		 move_left.c move_right.c
+		 move_left.c \
+		 move_right.c \
+		 turning_cam.c
 
 INIT = init_color.c \
 	   init_data_map.c \

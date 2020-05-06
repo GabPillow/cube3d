@@ -4,7 +4,7 @@ void    init_position(char p, int x, int y, t_data *data)
 {
 	if (data->posx != 0 || data->posy != 0)
 		ft_error(data, "Position already set");
-    if (x == 0 || y == 0 || x == (int)ft_strlen(data->map[y] - 1) \
+    if (x == 0 || y == 0 || x == data->map_w \
 	|| y == data->map_h)
 		ft_error(data, "Imposible to start at this position");
 	data->posx = x + 0.5;

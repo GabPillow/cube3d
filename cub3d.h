@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/06 15:00:50 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/07 16:09:18 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_alltxt
 	t_txt		north;
 	t_txt		east;
 	t_txt		west;
+	t_txt		sprite;
 	int			floor;
 	int			ceiling;
 }				t_alltxt;

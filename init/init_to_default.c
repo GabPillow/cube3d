@@ -18,12 +18,16 @@ static void texture_to_default(t_alltxt *lst)
     lst->west.data = NULL;
     lst->west.width = 0;
     lst->west.height = 0;
+    lst->sprite.data = NULL;
+    lst->sprite.width = 0;
+    lst->sprite.height = 0;
 }
 
 void    init_to_default(t_data *data)
 {
     data->window = NULL;
     data->map = NULL;
+    data->img.img_ptr = NULL;
     data->map_h = 0;
     data->map_w = 0;
 	data->posx = 0;

@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/06 18:15:42 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/07 16:24:08 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_draw_img(t_clc *clc, t_data *data, t_txt *txt, t_img *img)
 	drawst = -clc->hline / 2 + data->wd_h / 2;
 	drawend = clc->hline / 2 + data->wd_h / 2;
 	drawst < 0 ? drawst = 0 : drawst;
-	drawend >= data->wd_h ? drawend = data->wd_h - 1 : drawend;
+	drawend >= data->wd_h ? drawend = data->wd_h : drawend;
 	y = 0;
 	while (y < data->wd_h)
 	{

@@ -4,14 +4,10 @@ void    init_texture(t_data *data, t_txt *txt, char *line)
 {
     int i;
 
-    i = 3;
-    if (txt->id || line[2] != ' ')
-    {
-        ft_strdel(&line);
-        ft_error(data, "Wrong params in configuration file");
-    }
+    i = 2;
     while (line[i] == ' ')
         i++;
+    puts(line + i);
     if (!(txt->id  = mlx_xpm_file_to_image(data->mlx, line + i, \
     &txt->height, &txt->width)))
     {

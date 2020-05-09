@@ -6,7 +6,7 @@
 #    By: suzie <suzie@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/17 15:35:27 by grochefo          #+#    #+#              #
-#    Updated: 2020/05/06 18:06:43 by suzie            ###   ########.fr        #
+#    Updated: 2020/05/09 16:59:06 by suzie            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ INIT = init_color.c \
 	   init_data_map.c \
 	   init_position.c \
 	   init_resolution.c \
+	   init_sprite.c \
 	   init_texture.c \
 	   init_to_default.c
 	   
@@ -59,6 +60,7 @@ PARSING_DATA = line_to_tab.c \
 
 RAYCASTING = ft_calcul_vec_dist.c \
 			 ft_calcul_wall.c \
+			 ft_raycasting_sprite.c \
 			 ft_raycasting.c
 
 SRCS = ft_error.c \

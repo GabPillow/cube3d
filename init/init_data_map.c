@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 15:44:33 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/06 19:25:33 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/09 14:44:25 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_data_map(t_data *data)
 			data->map[y][x] != 'N' && data->map[y][x] != 'S' &&\
 			data->map[y][x] != 'E' && data->map[y][x] != 'W')
 				ft_error(data, "Wrong caracter in map");
+			if (data->map[y][x] == '2')
+				data->nbsprite += 1;
 			if ((data->map[y][x] != ' ' && data->map[y][x] != '1')\
 			&& (y == 0 || y == data->map_h \
 			|| x == 0 || x == data->map_w))

@@ -28,6 +28,8 @@ void    init_to_default(t_data *data)
     data->window = NULL;
     data->map = NULL;
     data->img.img_ptr = NULL;
+    data->tab_sprite = NULL;
+    data->nbsprite = 0;
     data->map_h = 0;
     data->map_w = 0;
 	data->posx = 0;

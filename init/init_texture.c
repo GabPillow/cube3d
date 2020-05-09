@@ -7,7 +7,6 @@ void    init_texture(t_data *data, t_txt *txt, char *line)
     i = 2;
     while (line[i] == ' ')
         i++;
-    puts(line + i);
     if (!(txt->id  = mlx_xpm_file_to_image(data->mlx, line + i, \
     &txt->height, &txt->width)))
     {

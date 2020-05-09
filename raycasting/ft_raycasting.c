@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 13:02:29 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/07 16:24:08 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/09 16:23:40 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ft_calcul_text(t_clc *clc, t_data *data, t_txt *txt)
 	ft_draw_img(clc, data, txt, &data->img);
 }
 
-void	ft_raycasting(t_data *data, t_alltxt *list)
+void	ft_raycasting(t_data *data, t_alltxt *list, double *zbuffer)
 {
 	t_clc		clc;
 
@@ -84,6 +84,7 @@ void	ft_raycasting(t_data *data, t_alltxt *list)
 			ft_calcul_text(&clc, data, &list->east);
 		if (clc.side == WEST)
 			ft_calcul_text(&clc, data, &list->west);
+		zbuffer[clc.x] = clc.perpwalldist;
 		clc.x++;
 	}
 }

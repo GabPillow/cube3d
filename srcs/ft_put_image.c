@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 12:49:18 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/01 16:14:55 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/09 17:01:42 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	ft_put_image(t_data *data)
 {
-	ft_raycasting(data, &data->list);
+	double *zbuffer;
+
+	zbuffer = (double*)malloc(sizeof(double) * data->wd_w);
+	ft_raycasting(data, &data->list, zbuffer);
+	if (data->nbsprite)
+		ft_raycasting_sprite(data, data->tab_sprite, data->list.sprite,\
+		 zbuffer);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img_ptr, 0, 0);
 }

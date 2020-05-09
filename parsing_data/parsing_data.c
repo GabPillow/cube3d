@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 16:41:40 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/07 16:30:26 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/09 14:40:30 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void		parsing_data(char *path, t_data *data)
 	close(fd);
 	line_to_tab(tab, data);
 	init_data_map(data);
+	init_sprite(data);
 }

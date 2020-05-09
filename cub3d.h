@@ -6,7 +6,7 @@
 /*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 14:37:17 by grochefo          #+#    #+#             */
-/*   Updated: 2020/05/07 16:09:18 by suzie            ###   ########.fr       */
+/*   Updated: 2020/05/09 16:58:37 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ typedef struct	s_txt
 	int			bpp;
 	int			endian;
 }				t_txt;
+
+typedef struct 	s_sprite
+{
+	double x;
+	double y;
+}				t_sprite;
 
 typedef struct	s_alltxt
 {
@@ -91,8 +97,10 @@ typedef	struct	s_clc
 typedef struct		s_data
 {
 	char			**map;
+	t_sprite		*tab_sprite;
 	int				map_h;
 	int				map_w;
+	int				nbsprite;
 	double			posx;
 	double			posy;
 	double			dirx;
@@ -119,6 +127,7 @@ int	    init_color(t_data *data, char *line);
 void	init_data_map(t_data *data);
 void    init_position(char p, int x, int y, t_data *data);
 void	init_resolution(t_data *data, char *line);
+void	init_sprite(t_data *data);
 void    init_texture(t_data *data, t_txt *txt, char *line);
 void    init_to_default(t_data *data);
 
@@ -127,7 +136,9 @@ void	parsing_data(char *path, t_data *data);
 
 void	ft_calcul_vec_dist(t_clc *clc, t_data *data);
 void	ft_calcul_wall(t_clc *clc, t_data *data);
-void	ft_raycasting(t_data *data, t_alltxt *list);
+void    ft_raycasting_sprite(t_data *data, t_sprite *tab_sprite, t_txt txtsp,
+double *zbuffer);
+void	ft_raycasting(t_data *data, t_alltxt *list, double *zbuffer);
 
 void    ft_error(t_data *data, char *s);
 void	ft_exit_cub(t_data *data);

@@ -18,8 +18,8 @@ void    init_sprite(t_data *data)
             {
                 if (data->map[x][y] == '2')
                 {
-                    data->tab_sprite[i].x = x + 0.1;
-                    data->tab_sprite[i].y = y + 0.1;
+                    data->tab_sprite[i].x = x + 0.5;
+                    data->tab_sprite[i].y = y + 0.5;
                     i++;
                 }
                 y++;

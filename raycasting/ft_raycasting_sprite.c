@@ -53,8 +53,8 @@ double *zbuffer)
     sort_sprite(data, tab_sprite);
     while (i < data->nbsprite)
     {
-        spx = tab_sprite[i].x - data->posx - 0.01;
-        spy = tab_sprite[i].y - data->posy - 0.01;
+        spx = tab_sprite[i].x - data->posx;
+        spy = tab_sprite[i].y - data->posy;
         invdet = 1.0 / (data->planex * data->diry - data->dirx * data->planey);
         transx = invdet * (data->diry * spx - data->dirx * spy);
         transy = invdet * (-data->planey * spx + data->planex * spy);

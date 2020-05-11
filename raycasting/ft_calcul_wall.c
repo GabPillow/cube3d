@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calcul_wall.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grochefo <grochefo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: suzie <suzie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 17:04:59 by grochefo          #+#    #+#             */
-/*   Updated: 2020/03/12 17:05:38 by grochefo         ###   ########.fr       */
+/*   Updated: 2020/05/11 19:59:36 by suzie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_calcul_wall(t_clc *clc, t_data *data)
 			clc->mapy += clc->stepy;
 			clc->side = clc->diry < 0 ? WEST : EAST;
 		}
-		if (data->map[clc->mapx][clc->mapy] != '0')
+		if (data->map[clc->mapx][clc->mapy] == '1')
 			hit = 1;
 	}
 }

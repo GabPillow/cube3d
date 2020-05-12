@@ -65,14 +65,14 @@ double *zbuffer)
             starty = 0;
         endy = sp_h / 2 + data->wd_h / 2;
         if(endy >= data->wd_h)
-            endy = data->wd_h - 1;
+            endy = data->wd_h;
         sp_w = abs((int)(data->wd_h / (transy)));
-        startx = -sp_w / 2 + spx;
+        startx = -sp_w / 2 + spscreen;
         if (startx < 0)
             startx = 0;
         endx = sp_w / 2 + spscreen;
         if(endx >= data->wd_w)
-            endx = data->wd_w - 1;
+            endx = data->wd_w;
         stripe = startx;
         while (stripe < endx)
         {
@@ -85,8 +85,8 @@ double *zbuffer)
                 {
                     d = (y) * 256 - data->wd_h * 128 + sp_h * 128;
                     yt = ((d * txtsp.height) / sp_h) / 256;
-                    if ((txtsp.data[txtsp.width * yt + xt] & 0x00FFFFFF) != 0)
-                        data->img.data[y * data->wd_w + stripe] = txtsp.data[yt * txtsp.width + xt];
+                    if (txtsp.data[yt * txtsp.width + xt] != 0)
+                        data->img.data[y * data->wd_w - 1 + stripe] = txtsp.data[yt * txtsp.width + xt];
                     y++;
                 }
             }
